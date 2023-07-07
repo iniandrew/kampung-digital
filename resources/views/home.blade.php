@@ -36,7 +36,7 @@
                 <a class="nav-link nav-menu" href="#faq">FAQ</a>
               </li>
             </ul>
-            <button type="button" class="btn-login"><a class="btn-href" href="#">Login</a></button>
+            <button type="button" class="btn-login"><a class="btn-href" href="{{ route('login') }}">Login</a></button>
           </div>
         </div>
       </nav>
@@ -51,7 +51,7 @@
             <h1 class="title-home">SIKAT</h1>
             <p class="desc-home">Hi, Selamat Datang di Sistem Informasi Kampung Digital</p>
             <p class="desc-home-alt">Sebuah inovasi anak bangsa untuk kemajuan kampung, di era digital</p>
-            <button type="button" class="btn-login"><a class="btn-href" href="#">Login</a></button>
+            <button type="button" class="btn-login"><a class="btn-href" href="{{ route('login') }}">Login</a></button>
           </div>
           <div class="col-xl-5" data-aos="fade-up" data-aos-duration="1500">
             <img class="img-home" src="{{ Vite::asset('resources/images/amico.png') }}" alt="">
@@ -73,7 +73,7 @@
             </div>
           </div>
           <div class="col-xl-6">
-            <img src="{{ Vite::asset('resources/images/amico2.png') }}" alt="" class="img-about">
+            <img src="{{ Vite::asset('resources/images/amico2.png') }}" alt="" class="img-about" data-aos="fade-left" data-aos-duration="1500">
           </div>
         </div>
         <div class="row benefit-row">

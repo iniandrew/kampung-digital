@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>SIKAT-APP</title>
-    <link rel="icon" href="{{ asset('img/icon.png') }}">
+    <link rel="icon" href="{{ Vite::asset('resources/images/icon.png') }}">
     @vite('resources/sass/app.scss')
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 </head>
@@ -13,7 +13,7 @@
     <nav class="navbar fixed-top navbar-expand-xl menu">
         <div class="container-fluid">
             <a class="navbar-brand nav-brand" href="#">
-                <img src="{{ asset('img/icon.png') }}" alt="" width="30" height="30" class="d-inline-block align-text-top img-icon">
+                <img src="{{ Vite::asset('resources/images/icon.png') }}" alt="" width="30" height="30" class="d-inline-block align-text-top img-icon">
                 SIKAT
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -43,7 +43,7 @@
     </nav>
 </div>
 <a href="#" type="button" id="btn-up" class="btn-up">
-    <img src="{{ asset('img/up.png') }}" alt="" width="30" class="img-up">
+    <img src="{{ Vite::asset('resources/images/up.png') }}" alt="" width="30" class="img-up">
 </a>
 <div class="container">
     <section class="home" id="home">
@@ -55,7 +55,7 @@
                 <button type="button" class="btn-login"><a class="btn-href" href="{{ route('login') }}">Login</a></button>
             </div>
             <div class="col-xl-5" data-aos="fade-up" data-aos-duration="1500">
-                <img class="img-home" src="{{ asset('img/amico.png') }}" alt="">
+                <img class="img-home" src="{{ Vite::asset('resources/images/amico.png') }}" alt="">
             </div>
         </div>
     </section>
@@ -68,27 +68,27 @@
                 <h1 class="title-about">Apa itu SIKAT?</h1>
                 <p class="desc-about">SIKAT (Sistem Informasi Kampung Digital) adalah aplikasi untuk membantu masyarakat  dalam pengembangan tempat tinggalnya. SIKAT (Sistem Informasi Kampung Digital) Mempunyai beberapa fitur yaitu:</p>
                 <div class="fitur-menu">
-                    <p class="fitur-item"><img src="{{ asset('img/checklist.png') }}" alt="" class="img-fitur"> Aduan Warga</p>
-                    <p class="fitur-item"><img src="{{ asset('img/checklist.png') }}" alt="" class="img-fitur"> Agenda Desa</p>
-                    <p class="fitur-item"><img src="{{ asset('img/checklist.png') }}" alt="" class="img-fitur"> Dana Desa</p>
+                    <p class="fitur-item"><img src="{{ Vite::asset('resources/images/checklist.png') }}" alt="" class="img-fitur"> Aduan Warga</p>
+                    <p class="fitur-item"><img src="{{ Vite::asset('resources/images/checklist.png') }}" alt="" class="img-fitur"> Agenda Desa</p>
+                    <p class="fitur-item"><img src="{{ Vite::asset('resources/images/checklist.png') }}" alt="" class="img-fitur"> Dana Desa</p>
                 </div>
             </div>
-            <div class="col-xl-6">
-                <img src="{{ asset('img/amico2.png') }}" alt="" class="img-about">
+            <div class="col-xl-6" data-aos="fade-left" data-aos-duration="1500">
+                <img src="{{ Vite::asset('resources/images/amico2.png') }}" alt="" class="img-about">
             </div>
         </div>
         <div class="row benefit-row">
             <div class="col-xl-6" data-aos="flip-left" data-aos-duration="1500">
-                <img src="{{ asset('img/bro.png') }}" alt="" class="img-about" width="530">
+                <img src="{{ Vite::asset('resources/images/bro.png') }}" alt="" class="img-about" width="530">
             </div>
             <div class="col-xl-6">
                 <h1 class="title-about">Apa manfaat SIKAT?</h1>
                 <p class="desc-about">SIKAT (Sistem Informasi Kampung Digital) dibuat berdasarkan kebutuhan masyarakat, dengan adanya SIKAT masyarakat dapat memanfaatkan fitur-fitur yang ada di SIKAT</p>
                 <div class="fitur-menu">
-                    <p class="fitur-item"><img src="{{ asset('img/checklist.png') }}" alt="" class="img-fitur-benefit"> Mudah digunakan</p>
-                    <p class="fitur-item"><img src="{{ asset('img/checklist.png') }}" alt="" class="img-fitur-benefit"> Akses informasi lebih cepat</p>
-                    <p class="fitur-item"><img src="{{ asset('img/checklist.png') }}" alt="" class="img-fitur-benefit"> Memudahkan masyarakat untuk melihat data aliran dana desa</p>
-                    <p class="fitur-item"><img src="{{ asset('img/checklist.png') }}" alt="" class="img-fitur-benefit"> Manajemen lebih terkontrol</p>
+                    <p class="fitur-item"><img src="{{ Vite::asset('resources/images/checklist.png') }}" alt="" class="img-fitur-benefit"> Mudah digunakan</p>
+                    <p class="fitur-item"><img src="{{ Vite::asset('resources/images/checklist.png') }}" alt="" class="img-fitur-benefit"> Akses informasi lebih cepat</p>
+                    <p class="fitur-item"><img src="{{ Vite::asset('resources/images/checklist.png') }}" alt="" class="img-fitur-benefit"> Memudahkan masyarakat untuk melihat data aliran dana desa</p>
+                    <p class="fitur-item"><img src="{{ Vite::asset('resources/images/checklist.png') }}" alt="" class="img-fitur-benefit"> Manajemen lebih terkontrol</p>
                 </div>
             </div>
         </div>
@@ -106,15 +106,15 @@
                 </div>
             </div>
             <div class="col-xl-6" data-aos="flip-down" data-aos-duration="1500">
-                <img src="{{ asset('img/Feedback-amico.png') }}" width="500" alt="" class="img-aduan">
+                <img src="{{ Vite::asset('resources/images/Feedback-amico.png') }}" width="500" alt="" class="img-aduan">
             </div>
         </div>
         <div class="row">
             <div class="col-xl-6">
                 <h1 class="title-aduan-alt">Syarat Aduan yang ditanggapi</h1>
                 <div class="fitur-menu">
-                    <p><img src="{{ asset('img/checklist.png') }}" alt="" class="img-fitur-benefit"><span class="rule-aduan"> Identitas Warga Desa Jelas</span></p>
-                    <p><img src="{{ asset('img/checklist.png') }}" alt="" class="img-fitur-benefit"><span class="rule-aduan"> Menyertakan bukti yang mendukung Pengaduan yang disampaikan</span></p>
+                    <p><img src="{{ Vite::asset('resources/images/checklist.png') }}" alt="" class="img-fitur-benefit"><span class="rule-aduan"> Identitas Warga Desa Jelas</span></p>
+                    <p><img src="{{ Vite::asset('resources/images/checklist.png') }}" alt="" class="img-fitur-benefit"><span class="rule-aduan"> Menyertakan bukti yang mendukung Pengaduan yang disampaikan</span></p>
                 </div>
             </div>
             <div class="col-xl-6">
@@ -138,7 +138,7 @@
                 </div>
             </div>
             <div class="col-xl-6" data-aos="zoom-in-up" data-aos-duration="1500">
-                <img src="{{ asset('img/Schedule-amico.png') }}" width="530" alt="" class="img-agenda">
+                <img src="{{ Vite::asset('resources/images/Schedule-amico.png') }}" width="530" alt="" class="img-agenda">
             </div>
         </div>
     </div>
@@ -147,7 +147,7 @@
     <div class="container dana">
         <div class="row">
             <div class="col-xl-6" data-aos="zoom-in-right" data-aos-duration="1500">
-                <img src="{{ asset('img/Spreadsheets-pana.png') }}" width="530" alt="" class="img-dana">
+                <img src="{{ Vite::asset('resources/images/Spreadsheets-pana.png') }}" width="530" alt="" class="img-dana">
             </div>
             <div class="col-xl-6">
                 <h1 class="title-dana">Dana Desa</h1>
@@ -224,13 +224,18 @@
     <div class="container">
         <br><br><br>
         <center>
-            <img src="{{ asset('img/icon.png') }}" alt="" class="img-footer"> <span class="title-footer">SIKAT</span>
-            <br><br><span class="end-footer">&copy; 2022 SIKAT. All rights reserved.</span>
+            <img src="{{ Vite::asset('resources/images/icon.png') }}" alt="" class="img-footer"> <span class="title-footer">SIKAT</span>
+            <br><br><span class="end-footer">&copy; {{ date('Y') }} SIKAT. All rights reserved.</span>
             <br><br><br>
         </center>
     </div>
 </section>
-@vite('resources/js/app.js')
+@vite([
+    'resources/js/app.js',
+    'resources/js/landing.js'
+])
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js" integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
 <script>
     AOS.init();

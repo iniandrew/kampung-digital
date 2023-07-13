@@ -25,4 +25,10 @@ class HomeController extends Controller
     {
         return view('home');
     }
+
+    public function changePassword(){
+        return view('app.account.change_password', [
+            'titlePage' => 'Ubah Password'
+        ]);
+    }
 }

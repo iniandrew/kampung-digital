@@ -39,9 +39,15 @@
                             <form method="POST" action="{{ route('login') }}" class="needs-validation" novalidate="">
                                 @csrf
 
+                                @if ($errors->any())
+                                    <div class="alert alert-danger">
+                                        <p>Akun Tidak Dikenali</p>
+                                    </div>
+                                @endif
+
                                 <div class="form-group">
                                     <label for="username">Email</label>
-                                    <input id="username" type="text" class="form-control" name="username" placeholder="Masukkan email anda" tabindex="1" :value="old('username')" required autofocus autocomplete="username" />
+                                    <input id="username" type="text" class="form-control" name="email" placeholder="Masukkan email anda" tabindex="1" :value="old('username')" required autofocus autocomplete="username" />
                                     <div class="invalid-feedback">
                                         Mohon lengkapi isian Email
                                     </div>

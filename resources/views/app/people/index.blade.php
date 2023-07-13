@@ -40,7 +40,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach ($peoples as $key => $people)
+                                            {{-- @foreach ($peoples as $key => $people)
                                                 <tr>
                                                     <td>{{ $key + 1 }}</td>
                                                     <td>{{ $people->name }}</td>
@@ -58,7 +58,7 @@
                                                         <a class="btn btn-primary" href="{{ route('people.show', $people->id) }}" title="Detail"><i class="fas fa-solid fa-circle-info"></i></a>
                                                     </td>
                                                 </tr>
-                                            @endforeach
+                                            @endforeach --}}
                                         </tbody>
                                     </table>
                                 </div>
@@ -81,22 +81,22 @@
     <script>
         $(document).ready(function () {
             $('#tableData').DataTable({
-                // serverSide: true,
-                // processing: true,
-                // ajax: "/getPeople",
-                // columns: [
-                //     { data: "id", name: "id", visible: false },
-                //     { data: "DT_RowIndex", name: "DT_RowIndex", orderable: false, searchable: false },
-                //     { data: "name", name: "name" },
-                //     { data: "nik", name: "nik" },
-                //     { data: "address", name: "address" },
-                //     { data: "actions", name: "actions", orderable: false, searchable: false },
-                // ],
-                // order: [[0, "desc"]],
-                // lengthMenu: [
-                //     [10, 25, 50, 100, -1],
-                //     [10, 25, 50, 100, "All"],
-                // ],
+                serverSide: true,
+                processing: true,
+                ajax: "{{ route('people.getData') }}",
+                columns: [
+                    { data: "id", name: "id", visible: false },
+                    { data: "DT_RowIndex", name: "DT_RowIndex", orderable: false, searchable: false },
+                    { data: "name", name: "name" },
+                    { data: "nik", name: "nik" },
+                    { data: "address", name: "address" },
+                    { data: "actions", name: "actions", orderable: false, searchable: false },
+                ],
+                order: [[0, "desc"]],
+                lengthMenu: [
+                    [10, 25, 50, 100, -1],
+                    [10, 25, 50, 100, "All"],
+                ],
             });
         });
     </script>

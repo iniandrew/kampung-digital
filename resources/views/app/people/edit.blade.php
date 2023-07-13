@@ -74,7 +74,7 @@
                             <div class="col-6">
                                 <div class="form-group">
                                     <label>Nomor Telepon</label>
-                                    <input type="number" class="form-control @error('phone_number') is-invalid @enderror" value="{{ $people->phone_number }}" required name="phone_number">
+                                    <input type="text" class="form-control @error('phone_number') is-invalid @enderror" value="{{ $people->phone_number }}" required name="phone_number">
                                     @error('phone_number')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror

@@ -18,7 +18,7 @@ class PeopleController extends Controller
 
         return view('app.people.index', [
             'titlePage' => 'Data Warga',
-            'peoples' => $peoples
+            // 'peoples' => $peoples
         ]);
     }
 

@@ -23,8 +23,8 @@
             </li>
 
             {{-- @if (Auth::user()->jabatan->nama_jabatan == 'Super Admin' || Auth::user()->jabatan->nama_jabatan == 'Admin') --}}
-                <li class="menu">
-                    <a href="#" class="nav-link"><i class="fas fa-users"></i><span>Data Warga</span></a>
+                <li class="menu {{ request()->routeIs('people.*') ? 'active' : '' }}">
+                    <a href="{{ route('people.index') }}" class="nav-link"><i class="fas fa-users"></i><span>Data Warga</span></a>
                 </li>
             {{-- @endif --}}
             {{-- @if (Auth::user()->jabatan->nama_jabatan == 'Super Admin') --}}

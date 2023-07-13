@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PeopleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,4 +24,7 @@ Auth::routes();
 Route::middleware(['auth'])->group(function () {
     Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::get('/change-password', [HomeController::class, 'changePassword'])->name('changePassword');
+
+    Route::resource('/people', PeopleController::class);
+    Route::get('/getPeople', [PeopleController::class, 'getData'])->name('people.getData');
 });

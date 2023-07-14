@@ -53,7 +53,7 @@
         </div>
     </li>
     <li class="dropdown"><a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle nav-link-lg nav-link-user">
-        <div class="d-sm-none d-lg-inline-block">bagus</div></a>
+        <div class="d-sm-none d-lg-inline-block">{{ auth()->user()->name }}</div></a>
         <div class="dropdown-menu dropdown-menu-right">
         <a href="{{ route('changePassword') }}" class="dropdown-item has-icon">
             <i class="fas fa-cog"></i> Ubah Password

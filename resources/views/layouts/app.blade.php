@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
-    <title>{{ config('app.name') }} @if(isset($pageTitle)) &mdash; {{ $pageTitle }} @endif</title>
+    <title>{{ config('app.name') }} @if(isset($titlePage)) &mdash; {{ $titlePage }} @endif</title>
     <link rel="shortcut icon" href="{{ Vite::asset('resources/images/icon.png') }}" />
 
     <!-- General CSS Files -->

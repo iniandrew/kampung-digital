@@ -27,11 +27,11 @@
                     <a href="{{ route('people.index') }}" class="nav-link"><i class="fas fa-users"></i><span>Data Warga</span></a>
                 </li>
             {{-- @endif --}}
-            {{-- @if (Auth::user()->jabatan->nama_jabatan == 'Super Admin') --}}
-                <li class="menu">
-                    <a href="#" class="nav-link"><i class="fas fa-user"></i><span>Data Pengguna</span></a>
+            @if (Auth::user()->role == 'Super Admin')
+                <li class="menu {{ request()->routeIs('user.*') ? 'active' : '' }}">
+                    <a href="{{ route('user.index') }}" class="nav-link"><i class="fas fa-user"></i><span>Data Pengguna</span></a>
                 </li>
-            {{-- @endif --}}
+            @endif
         </ul>
     </aside>
 </div>

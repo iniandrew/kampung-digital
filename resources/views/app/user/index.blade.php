@@ -5,14 +5,13 @@
 @endpush
 
 @section('content')
-     <div class="main-content">
+    <div class="main-content">
         <section class="section">
             <div class="section-header">
                 <h1>{{$titlePage}}</h1>
                 <div class="section-header-breadcrumb">
                     <div class="breadcrumb-item active"><a href="{{ route('home') }}">Dashboard</a></div>
-                    <div class="breadcrumb-item"><a href="javascript:void(0);">Warga</a></div>
-                    <div class="breadcrumb-item">Data Warga</div>
+                    <div class="breadcrumb-item">Data Pengguna</div>
                 </div>
             </div>
             {{-- edit content --}}
@@ -21,22 +20,21 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4>Data Warga</h4>
-                                {{-- @if (Auth::user()->jabatan->nama_jabatan == 'Super Admin' || Auth::user()->jabatan->nama_jabatan == 'Admin') --}}
-                                    <a href="{{ route('people.create') }}" class="btn btn-primary btn-add">Tambah Warga</a>
+                                <h4>Data Pengguna</h4>
+                                {{-- @if (Auth::user()->jabatan->nama_jabatan == 'Super Admin') --}}
+                                    <a href="{{ route('user.create') }}" class="btn btn-primary btn-add">Tambah Pengguna</a>
                                 {{-- @endif --}}
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
-                                    <table class="table table-striped" id="tableData">
+                                    <table class="table table-striped datatable" id="tableData">
                                         <thead>
                                             <tr>
                                                 <th>ID</th>
-                                                <th class="text-center">No.</th>
-                                                <th>Nama Warga</th>
-                                                <th>NIK</th>
-                                                <th>Alamat</th>
-                                                <th>Aksi</th>
+                                                <th>No.</th>
+                                                <th>Nama Pengguna</th>
+                                                <th>Jabatan</th>
+                                                <th>Action</th>
                                             </tr>
                                         </thead>
                                     </table>
@@ -54,6 +52,7 @@
 @push('js-libraries')
     <script src="https://cdn.datatables.net/1.13.3/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.10/dist/sweetalert2.all.min.js"></script>
 @endpush
 
 @push('script')
@@ -62,13 +61,12 @@
             $('#tableData').DataTable({
                 serverSide: true,
                 processing: true,
-                ajax: "{{ route('people.getData') }}",
+                ajax: "/getUser",
                 columns: [
                     { data: "id", name: "id", visible: false },
                     { data: "DT_RowIndex", name: "DT_RowIndex", orderable: false, searchable: false },
                     { data: "name", name: "name" },
-                    { data: "nik", name: "nik" },
-                    { data: "address", name: "address" },
+                    { data: "role", name: "role" },
                     { data: "actions", name: "actions", orderable: false, searchable: false },
                 ],
                 order: [[0, "desc"]],
@@ -76,6 +74,26 @@
                     [10, 25, 50, 100, -1],
                     [10, 25, 50, 100, "All"],
                 ],
+            });
+
+            $(".datatable").on("click", ".btn-delete", function (e) {
+                e.preventDefault();
+
+                var form = $(this).closest("form");
+                var name = $(this).data("name");
+
+                Swal.fire({
+                    title: "Apakah Anda Yakin Menghapus Akun Pengguna\n" + name + "?",
+                    text: "Data yang dihapus tidak dapat dikembalikan!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonClass: "bg-danger",
+                    confirmButtonText: "Yes, delete it!",
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        form.submit();
+                    }
+                });
             });
         });
     </script>

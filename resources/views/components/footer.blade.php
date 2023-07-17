@@ -1,5 +1,5 @@
 <footer class="main-footer">
     <div class="footer-left">
-      Copyright &copy; 2022 <div class="bullet"></div> Design By Team SIKAT
+      Copyright &copy; {{ date('Y') }} <div class="bullet"></div> Built with ❤️ by tim SIKAT.
     </div>
 </footer>

@@ -14,11 +14,22 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        User::query()->create([
-            "name" => "Super Admin",
-            "email" => "superadmin@mail.com",
-            "password" => Hash::make('password'),
-            "role" => "Super Admin"
+        $roles = collect([
+            User::ROLE_SUPER_ADMIN,
+            User::ROLE_ADMIN,
+            User::ROLE_BENDAHARA,
+            User::ROLE_WARGA,
         ]);
+
+        $roles->each(function ($role) {
+            User::query()->create([
+                'name' => $role,
+                'email' => strtolower($role) . "@mail.com",
+                'password' => Hash::make('password'),
+                'role' => $role
+            ]);
+
+            $this->command->info('User ' . $role . ' created');
+        });
     }
 }

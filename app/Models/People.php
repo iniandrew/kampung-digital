@@ -21,6 +21,7 @@ class People extends Model
 
     public const STATUS_MARRIED = "Menikah";
     public const STATUS_SINGLE = "Lajang";
+    public const STATUS_DIVORCED = "Cerai";
 
     protected $table = "peoples";
 
@@ -30,12 +31,16 @@ class People extends Model
         "name",
         "date_of_birth",
         "place_of_birth",
-        "married_status",
+        "marital_status",
         "address",
         "phone_number",
         "religion",
         "gender",
         "job",
-        "account"
+        "has_account"
+    ];
+
+    protected $casts = [
+        'has_account' => 'boolean'
     ];
 }

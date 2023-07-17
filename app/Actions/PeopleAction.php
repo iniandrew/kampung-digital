@@ -27,13 +27,12 @@ class PeopleAction
         $this->people->name = $filteredRequest['name'];
         $this->people->date_of_birth = $filteredRequest['date_of_birth'];
         $this->people->place_of_birth = $filteredRequest['place_of_birth'];
-        $this->people->married_status = $filteredRequest['married_status'];
+        $this->people->marital_status = $filteredRequest['marital_status'];
         $this->people->address = $filteredRequest['address'];
         $this->people->phone_number = $filteredRequest['phone_number'];
         $this->people->religion = $filteredRequest['religion'];
         $this->people->gender = $filteredRequest['gender'];
         $this->people->job = $filteredRequest['job'];
-        $this->people->account = 0;
 
         $result = $this->people->save();
         return $result;
@@ -47,7 +46,7 @@ class PeopleAction
         $people->name = $filteredRequest['name'];
         $people->date_of_birth = $filteredRequest['date_of_birth'];
         $people->place_of_birth = $filteredRequest['place_of_birth'];
-        $people->married_status = $filteredRequest['married_status'];
+        $people->marital_status = $filteredRequest['marital_status'];
         $people->address = $filteredRequest['address'];
         $people->phone_number = $filteredRequest['phone_number'];
         $people->religion = $filteredRequest['religion'];
@@ -64,9 +63,9 @@ class PeopleAction
             'name' => 'required',
             'nik' => 'required|max_digits:16|unique:peoples,nik,' . $people?->id,
             'family_card_number' => 'required|max_digits:16|unique:peoples,family_card_number,' . $people?->id,
-            'date_of_birth' => 'required',
+            'date_of_birth' => 'required|date',
             'place_of_birth' => 'required',
-            'married_status' => 'required',
+            'marital_status' => 'required',
             'address' => 'required',
             'phone_number' => 'required',
             'religion' => 'required',

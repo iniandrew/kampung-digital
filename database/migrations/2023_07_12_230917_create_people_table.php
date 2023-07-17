@@ -17,15 +17,15 @@ return new class extends Migration
             $table->string('nik')->unique();
             $table->string('family_card_number')->unique();
             $table->string('name');
-            $table->string('date_of_birth');
+            $table->date('date_of_birth');
             $table->string('place_of_birth');
-            $table->enum('married_status', [People::STATUS_MARRIED, People::STATUS_SINGLE]);
-            $table->string("address");
-            $table->string("phone_number");
-            $table->enum("religion", [People::RELIGION_ISLAM, People::RELIGION_PROTESTANT, People::RELIGION_CATHOLIC, People::RELIGION_BUDDHA, People::RELIGION_HINDU, People::RELIGION_KONGHUCU]);
-            $table->enum("gender", [People::GENDER_MALE, People::GENDER_FEMALE]);
-            $table->string("job");
-            $table->boolean("account")->default(false);
+            $table->enum('marital_status', [People::STATUS_MARRIED, People::STATUS_SINGLE, People::STATUS_DIVORCED]);
+            $table->text('address');
+            $table->string('phone_number');
+            $table->enum('religion', [People::RELIGION_ISLAM, People::RELIGION_PROTESTANT, People::RELIGION_CATHOLIC, People::RELIGION_BUDDHA, People::RELIGION_HINDU, People::RELIGION_KONGHUCU]);
+            $table->enum('gender', [People::GENDER_MALE, People::GENDER_FEMALE]);
+            $table->string('job')->nullable();
+            $table->boolean('has_account')->default(false);
             $table->timestamps();
         });
     }

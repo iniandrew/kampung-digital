@@ -17,15 +17,6 @@ class PeopleAction
         $this->request = $request;
     }
 
-    public function getQuery()
-    {
-        // $query = LKS::query();
-        // $query->where('office_id', $this->request->user()->office_id);
-        // $query->latest();
-
-        // return $query;
-    }
-
     public function create(): bool
     {
         $filteredRequest = $this->validate($this->request->all(), $this->rules());

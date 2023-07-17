@@ -34,7 +34,7 @@
                             <div class="col-6">
                                 <div class="form-group">
                                     <label>NIK</label>
-                                    <input type="number" name="nik" value="{{ $people->nik }}" class="form-control @error('nik') is-invalid @enderror" required>
+                                    <input type="number" name="nik" id="nik" value="{{ $people->nik }}" class="form-control @error('nik') is-invalid @enderror" required>
                                     @error('nik')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
@@ -74,7 +74,7 @@
                             <div class="col-6">
                                 <div class="form-group">
                                     <label>Nomor Telepon</label>
-                                    <input type="text" class="form-control @error('phone_number') is-invalid @enderror" value="{{ $people->phone_number }}" required name="phone_number">
+                                    <input type="text" id="phone_number" class="form-control @error('phone_number') is-invalid @enderror" value="{{ $people->phone_number }}" required name="phone_number">
                                     @error('phone_number')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
@@ -127,18 +127,24 @@
                                 <div class="form-group form-anggota">
                                     <label class="d-block">Status Pernikahan</label>
                                     <div class="form-check">
-                                      <input class="form-check-input @error('married_status') is-invalid @enderror" type="radio" value="Menikah" name="married_status" id="status1" required @if ($people->married_status == "Menikah") checked @endif>
+                                      <input class="form-check-input @error('marital_status') is-invalid @enderror" type="radio" value="Menikah" name="marital_status" id="status1" required @if ($people->marital_status === "Menikah") checked @endif>
                                       <label class="form-check-label" for="status1">
                                         Menikah
                                       </label>
                                     </div>
                                     <div class="form-check">
-                                      <input class="form-check-input @error('married_status') is-invalid @enderror" type="radio" value="Lajang" name="married_status" id="status2" required @if ($people->married_status == "Lajang") checked @endif>
+                                      <input class="form-check-input @error('marital_status') is-invalid @enderror" type="radio" value="Lajang" name="marital_status" id="status2" required @if ($people->marital_status === "Lajang") checked @endif>
                                       <label class="form-check-label" for="status2">
                                         Lajang
                                       </label>
                                     </div>
-                                    @error('married_status')
+                                    <div class="form-check">
+                                        <input class="form-check-input @error('marital_status') is-invalid @enderror" type="radio" value="Cerai" name="marital_status" id="status3" required @if ($people->marital_status === "Cerai") checked @endif>
+                                        <label class="form-check-label" for="status2">
+                                            Cerai
+                                        </label>
+                                    </div>
+                                    @error('marital_status')
                                         <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
@@ -146,7 +152,7 @@
                         </div>
                         <div class="form-group">
                             <label>No Kartu Keluarga</label>
-                            <input type="number" class="form-control @error('family_card_number') is-invalid @enderror" required value="{{ $people->family_card_number }}" name="family_card_number">
+                            <input type="text" id="family_card_number" class="form-control @error('family_card_number') is-invalid @enderror" required value="{{ $people->family_card_number }}" name="family_card_number">
                             @error('family_card_number')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -162,3 +168,16 @@
         </section>
     </div>
 @endsection
+
+@push('js-libraries')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+@endpush
+
+@push('script')
+    <script>
+        $('#nik').mask('0000000000000000', {reverse: true});
+        $('#family_card_number').mask('0000000000000000', {reverse: true});
+        $('#phone_number').mask('0000-0000-0000', {reverse: true});
+    </script>
+@endpush
+

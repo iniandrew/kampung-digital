@@ -12,10 +12,10 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-    public const USER_SUPER_ADMIN = "Super Admin";
-    public const USER_ADMIN = "Admin";
-    public const USER_BENDAHARA = "Bendahara";
-    public const USER_WARGA ="Warga";
+    public const ROLE_SUPER_ADMIN = "Super Admin";
+    public const ROLE_ADMIN = "Admin";
+    public const ROLE_BENDAHARA = "Bendahara";
+    public const ROLE_WARGA = "Warga";
     /**
      * The attributes that are mass assignable.
      *

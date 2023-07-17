@@ -125,7 +125,7 @@
                             <div class="col-6">
                                 <div class="form-group form-anggota">
                                     <label class="d-block">Status Pernikahan</label>
-                                    <input type="text" class="form-control" value="{{ $people->married_status }}" readonly>
+                                    <input type="text" class="form-control" value="{{ $people->marital_status }}" readonly>
                                 </div>
                             </div>
                         </div>

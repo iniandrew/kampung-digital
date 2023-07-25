@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Agenda;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Session;
+
 
 class AgendaController extends Controller
 {
@@ -12,7 +15,14 @@ class AgendaController extends Controller
      */
     public function index()
     {
-        //
+        $titlePage = "Agenda";
+        if (Auth::user()->role == 'Admin') {
+            $dataAgenda = Agenda::all();
+        } else {
+            $dataAgenda = Agenda::where('status', '!=', 'arsip')->get();
+        }
+
+        return view('app.agenda.index', compact('titlePage', 'dataAgenda'));
     }
 
     /**
@@ -20,7 +30,8 @@ class AgendaController extends Controller
      */
     public function create()
     {
-        //
+        $titlePage = "Tambah Agenda";
+        return view ('app.agenda.create', compact('titlePage'));
     }
 
     /**
@@ -28,7 +39,23 @@ class AgendaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd($request);
+        $validation = $request->validate([
+            'user_id' => 'required',
+            'title' => 'required',
+            'content' => 'required',
+            'venue' => 'required',
+            'start_date' => 'required',
+            'end_date' => 'required',
+            'start_time' => 'required',
+            'end_time' => 'required',
+            'status' => 'required',
+        ]);
+
+        $new = Agenda::create($request->all());
+
+        Session::flash('success', 'Berhasil Menambah Agenda');
+        return redirect()->route('agenda.index');
     }
 
     /**
@@ -36,7 +63,8 @@ class AgendaController extends Controller
      */
     public function show(Agenda $agenda)
     {
-        //
+        $titlePage = "Edit Agenda";
+        return view('app.agenda.detail', compact('agenda', 'titlePage'));
     }
 
     /**
@@ -44,7 +72,9 @@ class AgendaController extends Controller
      */
     public function edit(Agenda $agenda)
     {
-        //
+        $titlePage = "Edit Agenda";
+        $navigation = "active";
+        return view('app.agenda.edit', compact('agenda', 'titlePage', 'navigation'));
     }
 
     /**
@@ -52,7 +82,22 @@ class AgendaController extends Controller
      */
     public function update(Request $request, Agenda $agenda)
     {
-        //
+        $validation = $request->validate([
+            'users_id' => 'required',
+            'title' => 'required',
+            'content' => 'required',
+            'venue' => 'required',
+            'start_date' => 'required',
+            'end_date' => 'required',
+            'start_time' => 'required',
+            'end_time' => 'required',
+            'status' => 'required',
+        ]);
+
+        $agenda->update($request->all());
+
+        Session::flash('success', 'Berhasil Mengedit Agenda');
+        return redirect()->route('agenda.index');
     }
 
     /**
@@ -60,6 +105,9 @@ class AgendaController extends Controller
      */
     public function destroy(Agenda $agenda)
     {
-        //
+        $agenda->delete();
+
+        Session::flash('success', 'Berhasil Menghapus Agenda');
+        return redirect()->route('agenda.index');
     }
 }

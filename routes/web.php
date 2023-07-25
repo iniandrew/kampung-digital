@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PeopleController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\FundController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,4 +32,6 @@ Route::middleware(['auth'])->group(function () {
 
     Route::resource('/user', UserController::class);
     Route::get('/getUser', [UserController::class, 'getData'])->name('user.getData');
+
+    Route::resource('/fund', FundController::class);
 });

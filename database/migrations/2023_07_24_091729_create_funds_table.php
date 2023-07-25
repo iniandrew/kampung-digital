@@ -15,10 +15,10 @@ return new class extends Migration
         Schema::create('funds', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(User::class, 'user_id')->constrained()->cascadeOnDelete();
-            $table->string('category');
+            $table->enum('category', ['Pemasukan', 'Pengeluaran']);
             $table->text('body');
             $table->string('amount');
-            $table->dateTime('transaction_date');
+            $table->string('transaction_date');
             $table->string('attachment')->nullable();
             $table->timestamps();
         });

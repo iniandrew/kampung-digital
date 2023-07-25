@@ -19,7 +19,7 @@
                 <a href="#" class="nav-link"><i class="fas fa-file-alt"></i><span>Aduan</span></a>
             </li>
             <li class="menu">
-                <a href="#" class="nav-link"><i class="fas fa-wallet"></i><span>Pendanaan</span></a>
+                <a href="{{ route('fund.index') }}" class="nav-link"><i class="fas fa-wallet"></i><span>Pendanaan</span></a>
             </li>
 
             {{-- @if (Auth::user()->jabatan->nama_jabatan == 'Super Admin' || Auth::user()->jabatan->nama_jabatan == 'Admin') --}}

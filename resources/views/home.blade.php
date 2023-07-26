@@ -59,7 +59,7 @@
                         <div class="card-header">
                             <h4>Aduan Terbaru</h4>
                             <div class="card-header-action">
-                                <a href="#" class="btn btn-primary">Lihat Semua</a>
+                                <a href="{{ route('home') }}" class="btn btn-primary">Lihat Semua</a>
                             </div>
                         </div>
                         <div class="card-body">
@@ -112,7 +112,7 @@
                                 @endforeach --}}
                             </ul>
                             <div class="text-center pt-1 pb-1">
-                                <a href="#" class="btn btn-primary btn-lg btn-round">
+                                <a href="agenda" class="btn btn-primary btn-lg btn-round">
                                 Lihat Semua
                                 </a>
                             </div>

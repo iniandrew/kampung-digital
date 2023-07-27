@@ -12,7 +12,6 @@
                 <h1>{{$titlePage}}</h1>
                 <div class="section-header-breadcrumb">
                     <div class="breadcrumb-item active"><a href="{{ route('home') }}">Dashboard</a></div>
-                    <div class="breadcrumb-item"><a href="agenda">Agenda</a></div>
                     <div class="breadcrumb-item">Data Agenda</div>
                 </div>
             </div>
@@ -58,13 +57,13 @@
                                                         @endif
                                                     </td>
                                                     <td>
-                                                        <form action="{{ route('agenda.destroy', $item->id) }}" method="POST">
+                                                        <form action="{{ route('agenda.destroy', $item->id) }}" class="formDelete" method="POST">
                                                             @if (Auth::user()->role == 'Super Admin')
                                                                 <a href="{{ route('agenda.edit', $item->id) }}" class="btn btn-info" title="Edit"><span class="fas fa-edit"></span></a>
 
                                                                 @csrf
                                                                 @method('DELETE')
-                                                                <button type="submit" class="btn btn-danger show_confirm" data-name="{{ $item->Title }}" data-toggle="toolip"><i class="fas fa-trash"></i></button>
+                                                                <button type="submit" class="btn btn-danger btn-delete" data-name="{{ $item->title }}"><i class="fas fa-trash"></i></button>
                                                                 @else
                                                                 <a class="btn btn-primary" href="{{ route('agenda.show', $item->id) }}" title="Detail"><i class="fas fa-info"></i></a>
                                                             @endif
@@ -88,29 +87,31 @@
 @push('js-libraries')
     <script src="https://cdn.datatables.net/1.13.3/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.10/dist/sweetalert2.all.min.js"></script>
 @endpush
 
 @push('script')
     <script type="text/javascript">
         $('#tableData').DataTable({});
 
-       $('.show_confirm').click(function(event) {
-          var form =  $(this).closest("form");
-          var name = $(this).data("name");
-          var Title = $(this).attr('data-name');
-          event.preventDefault();
-          swal({
-              title: `Apakah anda yakin ingin menghapus agenda `+Title+ ' ?',
-              text: "Jika anda hapus, data agenda "+Title+" akan hilang permanen",
-              icon: "warning",
-              buttons: true,
-              dangerMode: true,
-          })
-          .then((willDelete) => {
-            if (willDelete) {
-              form.submit();
-            }
-          });
-      });
+        $('.formDelete').submit(function (e) {
+            var title = $('.btn-delete').attr('data-name');
+            e.preventDefault();
+
+            Swal.fire({
+                title: 'Apakah Anda Yakin Menghapus Agenda '+ title +'?',
+                text: "Data yang dihapus tidak dapat dikembalikan!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Ya, hapus!',
+                cancelButtonText: 'Batal',
+                confirmButtonColor: '#d33',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    this.submit();
+                }
+            })
+        });
   </script>
 @endpush

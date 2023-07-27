@@ -22,12 +22,10 @@
                 <h1>{{$titlePage}}</h1>
                 <div class="section-header-breadcrumb">
                     <div class="breadcrumb-item active"><a href="{{ route('home') }}">Dashboard</a></div>
-                    <div class="breadcrumb-item"><a href="javascript:void(0);">Agenda</a></div>
-                    <div class="breadcrumb-item"><a href="{{ route('agenda.index') }}">List Agenda</a></div>
+                    <div class="breadcrumb-item"><a href="{{ route('agenda.index') }}">Data Agenda</a></div>
                     <div class="breadcrumb-item">Tambah Agenda</div>
                 </div>
             </div>
-
 
             {{-- edit content --}}
             <div class="card">
@@ -130,7 +128,6 @@
     <script type="text/javascript">
         $(document).ready(function(){
             $('.timepicker').timepicker();
-            $('.glyphicon-chevron-down').addClass("fas fa-chevron-down");
         });
     </script>
 @endpush

@@ -1,4 +1,20 @@
 @extends('layouts.app')
+
+@push('css-libraries')
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-timepicker/0.5.2/css/bootstrap-timepicker.css" integrity="sha512-E4kKreeYBpruCG4YNe4A/jIj3ZoPdpWhWgj9qwrr19ui84pU5gvNafQZKyghqpFIHHE4ELK7L9bqAv7wfIXULQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        .bootstrap-timepicker-widget table td input {
+            width: 50px;
+            margin: 0;
+            text-align: center;
+        }
+        .bootstrap-timepicker-widget table td a {
+            border: 1px #0b0b0b solid;
+        }
+    </style>
+@endpush
+
 @section('content')
     <div class="main-content">
         <section class="section">
@@ -6,8 +22,7 @@
                 <h1>{{$titlePage}}</h1>
                 <div class="section-header-breadcrumb">
                     <div class="breadcrumb-item active"><a href="{{ route('home') }}">Dashboard</a></div>
-                    <div class="breadcrumb-item"><a href="agenda">Agenda</a></div>
-                    <div class="breadcrumb-item"><a href="{{ route('agenda.index') }}">List Agenda</a></div>
+                    <div class="breadcrumb-item"><a href="{{ route('agenda.index') }}">Data Agenda</a></div>
                     <div class="breadcrumb-item">Edit Agenda</div>
                 </div>
             </div>
@@ -22,48 +37,43 @@
                     </div>
                     <div class="card-body">
                         <div class="form-group">
-                            <input type="text" hidden name="users_id" value="{{ Auth::user()->id }}">
                             <label>Judul Agenda</label>
-                            <input type="text" class="form-control" required="" value="{{ $agenda->title }}" name="title">
-                            <div class="invalid-feedback">Judul agendanya apa?</div>
+                            <input type="text" class="form-control @error('title') is-invalid @enderror" name="title" value="{{ $agenda->title }}">
+                            @error('title')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
                         <div class="form-group">
                             <label>Isi Agenda</label>
-                            <textarea name="content" id="" cols="30" rows="10" class="form-control" required>{{ $agenda->content }}</textarea>
-                            <div class="invalid-feedback">Rincian agendanya?</div>
+                            <textarea name="content" id="" cols="30" rows="10" class="form-control @error('content') is-invalid @enderror" style="height: 100px">{{ $agenda->content }}</textarea>
+                            @error('content')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
                         <div class="form-group">
                             <label>Tempat Agenda</label>
-                            <input type="text" class="form-control" required name="venue" value="{{ $agenda->venue }}">
-                            <div class="invalid-feedback">Tempatnya dimana?</div>
+                            <input type="text" class="form-control @error('venue') is-invalid @enderror" name="venue" value="{{ $agenda->venue }}">
+                            @error('venue')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
                         <div class="row">
                             <div class="col-6">
                                 <div class="form-group">
                                     <label>Tanggal Mulai</label>
-                                    <div class="input-group">
-                                      <div class="input-group-prepend">
-                                        <div class="input-group-text">
-                                          <i class="fas fa-calendar"></i>
-                                        </div>
-                                      </div>
-                                      <input type="date" name="start_date" required class="form-control" value="{{ $agenda->start_date }}">
-                                      <div class="invalid-feedback">Tanggal mulainya kapan?</div>
-                                    </div>
+                                    <input type="date" name="start_date" class="form-control @error('start_date') is-invalid @enderror" value="{{ $agenda->start_date }}">
+                                    @error('start_date)')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="form-group">
                                     <label>Tanggal Selesai</label>
-                                    <div class="input-group">
-                                      <div class="input-group-prepend">
-                                        <div class="input-group-text">
-                                          <i class="fas fa-calendar"></i>
-                                        </div>
-                                      </div>
-                                      <input type="date" name="end_date" required class="form-control" value="{{ $agenda->end_date }}">
-                                      <div class="invalid-feedback">Tanggal selesainya kapan?</div>
-                                    </div>
+                                    <input type="date" name="end_date" class="form-control @error('end_date') is-invalid @enderror" value="{{ $agenda->end_date }}">
+                                    @error('end_date')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
@@ -71,41 +81,33 @@
                             <div class="col-6">
                                 <div class="form-group">
                                     <label>Waktu Mulai</label>
-                                    <div class="input-group">
-                                      <div class="input-group-prepend">
-                                        <div class="input-group-text">
-                                          <i class="fas fa-calendar"></i>
-                                        </div>
-                                      </div>
-                                      <input type="text" name="start_time" required class="form-control" id="start" value="{{ $agenda->start_time }}">
-                                      <div class="invalid-feedback">Waktu mulainya kapan?</div>
-                                    </div>
+                                    <input type="text" name="start_time" class="form-control timepicker @error('start_time') is-invalid @enderror" id="start" value="{{ $agenda->start_time }}">
+                                    @error('start_time')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="form-group">
                                     <label>Waktu Selesai</label>
-                                    <div class="input-group">
-                                      <div class="input-group-prepend">
-                                        <div class="input-group-text">
-                                          <i class="fas fa-calendar"></i>
-                                        </div>
-                                      </div>
-                                      <input type="text" name="end_time" required class="form-control" id="finish" value="{{ $agenda->end_time }}">
-                                      <div class="invalid-feedback">Waktu selesainya kapan?</div>
-                                    </div>
+                                    <input type="text" name="end_time" class="form-control timepicker @error('end_time') is-invalid @enderror" id="finish" value="{{ $agenda->end_time }}">
+                                    @error('end_time')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
                             </div>
                         </div>
                         <div class="form-group">
                             <label>Status Agenda</label>
-                            <select class="form-control required" name="status">
+                            <select class="form-control @error('status') is-invalid @enderror" name="status" style="height: 45px">
                                 <option selected disabled hidden value="">Silahkan Pilih</option>
-                                <option value="arsip" {{$agenda->status == 'arsip'?'selected':''}}>Arsip</option>
-                                <option value="segera" {{$agenda->status == 'segera'?'selected':''}}>Segera</option>
-                                <option value="selesai" {{$agenda->status == 'selesai'?'selected':''}}>Selesai</option>
+                                <option value="arsip" @if ($agenda->status == "arsip") selected @endif>Arsip</option>
+                                <option value="segera" @if ($agenda->status == "segera") selected @endif>Segera</option>
+                                <option value="selesai" @if ($agenda->status == "selesai") selected @endif>Selesai</option>
                             </select>
-                            <div class="invalid-feedback">Status Agendanya gimana?</div>
+                            @error('status')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
                     </div>
                     <div class="card-footer text-right">
@@ -118,21 +120,15 @@
         </section>
     </div>
 @endsection
-@push('titlePages')
-    {{$titlePage}}
+
+@push('js-libraries')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-timepicker/0.5.2/js/bootstrap-timepicker.min.js" integrity="sha512-2xXe2z/uA+2SyT/sTSt9Uq4jDKsT0lV4evd3eoE/oxKih8DSAsOF6LUb+ncafMJPAimWAXdu9W+yMXGrCVOzQA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 @endpush
-@push('agenda')
-    {{$navigation}}
-@endpush
-@push('css')
-<link rel="stylesheet" href="{{ asset('css/timepicker.min.css') }}">
-@endpush
-@push('js')
-<script src="{{ asset('js/timepicker.min.js') }}"></script>
+
+@push('script')
     <script type="text/javascript">
         $(document).ready(function(){
-            $('#start').timepicker();
-            $('#finish').timepicker();
+            $('.timepicker').timepicker();
         });
     </script>
 @endpush

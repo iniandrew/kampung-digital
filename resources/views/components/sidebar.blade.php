@@ -12,8 +12,8 @@
                 <a href="{{ route('home') }}" class="nav-link"><i class="fas fa-home"></i><span>Dashboard</span></a>
             </li>
             <li class="menu-header">Menu</li>
-            <li class="menu">
-                <a href="agenda" class="nav-link"><i class="fas fa-calendar-alt"></i><span>Agenda</span></a>
+            <li class="menu {{ request()->routeIs('agenda.*') ? 'active' : '' }}">
+                <a href="{{ route('agenda.index') }}" class="nav-link"><i class="fas fa-calendar-alt"></i><span>Agenda</span></a>
             </li>
             <li class="menu">
                 <a href="#" class="nav-link"><i class="fas fa-file-alt"></i><span>Aduan</span></a>

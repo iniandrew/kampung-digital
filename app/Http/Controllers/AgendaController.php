@@ -39,9 +39,11 @@ class AgendaController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request);
-        $validation = $request->validate([
-            'user_id' => 'required',
+        $messages = [
+            'required' => ':attribute Kolom harus diisi.'
+        ];
+
+        $request->validate([
             'title' => 'required',
             'content' => 'required',
             'venue' => 'required',
@@ -50,12 +52,23 @@ class AgendaController extends Controller
             'start_time' => 'required',
             'end_time' => 'required',
             'status' => 'required',
-        ]);
+        ], $messages);
 
-        $new = Agenda::create($request->all());
+        $agenda = new Agenda;
 
-        Session::flash('success', 'Berhasil Menambah Agenda');
-        return redirect()->route('agenda.index');
+        $agenda->user_id = Auth::user()->id;
+        $agenda->title = $request->title;
+        $agenda->content = $request->content;
+        $agenda->venue = $request->venue;
+        $agenda->start_date = $request->start_date;
+        $agenda->end_date = $request->end_date;
+        $agenda->start_time = $request->start_time;
+        $agenda->end_time = $request->end_time;
+        $agenda->status = $request->status;
+
+        $agenda->save();
+
+        return redirect()->route('agenda.index')->with('success', 'Berhasil menambahkan data agenda');
     }
 
     /**

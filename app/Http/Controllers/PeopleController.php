@@ -17,8 +17,7 @@ class PeopleController extends Controller
         $peoples = People::all();
 
         return view('app.people.index', [
-            'titlePage' => 'Data Warga',
-            // 'peoples' => $peoples
+            'titlePage' => 'Data Warga'
         ]);
     }
 

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
-@push('titlePages')
-    {{$titlePage}}
+@push('css-libraries')
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css">
 @endpush
 
 @section('content')
@@ -13,7 +13,7 @@
                 <div class="section-header-breadcrumb">
                     <div class="breadcrumb-item active"><a href="{{ route('home') }}">Dashboard</a></div>
                     <div class="breadcrumb-item"><a href="agenda">Agenda</a></div>
-                    <div class="breadcrumb-item">List Agenda</div>
+                    <div class="breadcrumb-item">Data Agenda</div>
                 </div>
             </div>
 
@@ -24,13 +24,13 @@
                         <div class="card">
                             <div class="card-header">
                                 <h4>Data Agenda</h4>
-                                @if (Auth::user()->role == 'Admin')
+                                @if (Auth::user()->role == 'Super Admin')
                                     <a href="{{ route('agenda.create') }}" class="btn btn-primary btn-add">Tambah Agenda</a>
                                 @endif
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
-                                    <table class="table table-striped" id="table-1">
+                                    <table class="table table-striped" id="tableData">
                                         <thead>
                                             <tr>
                                                 <th class="text-center">No.</th>
@@ -59,15 +59,15 @@
                                                     </td>
                                                     <td>
                                                         <form action="{{ route('agenda.destroy', $item->id) }}" method="POST">
-                                                            @if (Auth::user()->role == 'Admin')
+                                                            @if (Auth::user()->role == 'Super Admin')
                                                                 <a href="{{ route('agenda.edit', $item->id) }}" class="btn btn-info" title="Edit"><span class="fas fa-edit"></span></a>
 
                                                                 @csrf
                                                                 @method('DELETE')
                                                                 <button type="submit" class="btn btn-danger show_confirm" data-name="{{ $item->Title }}" data-toggle="toolip"><i class="fas fa-trash"></i></button>
                                                                 @else
-                                                                @endif
                                                                 <a class="btn btn-primary" href="{{ route('agenda.show', $item->id) }}" title="Detail"><i class="fas fa-info"></i></a>
+                                                            @endif
                                                         </form>
                                                     </td>
                                                 </tr>
@@ -83,48 +83,16 @@
             {{-- end content --}}
         </section>
     </div>
-
 @endsection
 
-@push('css')
-    <!-- CSS Libraries -->
-    <link rel="stylesheet" href="{{ asset('assets/modules/datatables/datatables.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/modules/datatables/DataTables-1.10.16/css/dataTables.bootstrap4.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/modules/datatables/Select-1.2.4/css/select.bootstrap4.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/modules/ionicons/css/ionicons.min.css') }}">
-    <style>
-        .btn-add{
-            margin-left: 10px;
-        }
-
-    </style>
+@push('js-libraries')
+    <script src="https://cdn.datatables.net/1.13.3/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
 @endpush
-@push('js')
-    <!-- JS Libraies -->
-    <script src="{{ asset('assets/modules/datatables/datatables.min.js') }}"></script>
-    <script src="{{ asset('assets/modules/datatables/DataTables-1.10.16/js/dataTables.bootstrap4.min.js') }}"></script>
-    <script src="{{ asset('assets/modules/datatables/Select-1.2.4/js/dataTables.select.min.js') }}"></script>
-    <script src="{{ asset('assets/modules/jquery-ui/jquery-ui.min.js') }}"></script>
 
-    <!-- Page Specific JS File -->
-    <script src="{{ asset('assets/js/page/modules-datatables.js') }}"></script>
-
-      <!-- JS Libraies -->
-    <script src="{{ asset('assets/modules/sweetalert/sweetalert.min.js') }}"></script>
-
-    <!-- Page Specific JS File -->
-    <script src="{{ asset('assets/js/page/modules-sweetalert.js') }}"></script>
-
-
-
+@push('script')
     <script type="text/javascript">
-        @if ($message = Session::get('success'))
-           swal(
-               "Berhasil!",
-               "{{ $message }}",
-               "success"
-           );
-       @endif
+        $('#tableData').DataTable({});
 
        $('.show_confirm').click(function(event) {
           var form =  $(this).closest("form");

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ComplaintController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PeopleController;
@@ -39,4 +40,11 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('/agenda', AgendaController::class);
     Route::get('/getAgenda', [AgendaController::class, 'getData'])->name('agenda.getData');
 
+    Route::resource('/complaint', ComplaintController::class);
+});
+
+Route::middleware('auth')->prefix('complaint')->name('complaint.')->group(function () {
+    Route::get('{complaint}/review', [ComplaintController::class, 'review'])->name('review');
+    Route::post('{complaint}/review', [ComplaintController::class, 'reviewAction'])->name('review.store');
+    Route::post('{complaint}/respond', [ComplaintController::class, 'respond'])->name('respond');
 });

@@ -13,6 +13,7 @@
 
     <!-- CSS Libraries -->
     @stack('css-libraries')
+    @stack('style')
 
     <!-- Template -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])

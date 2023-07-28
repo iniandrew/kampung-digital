@@ -15,7 +15,7 @@ class PeopleController extends Controller
         $this->middleware(function ($request, $next) {
             $this->user= Auth::user();
 
-            if (Auth::user()->role != "Super Admin" || Auth::user()->role != "Admin") {
+            if (Auth::user()->role != "Super Admin" && Auth::user()->role != "Admin") {
                 abort(403, 'Anda tidak memiliki akses ke halaman ini');
             }
 

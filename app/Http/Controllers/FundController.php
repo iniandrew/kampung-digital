@@ -10,6 +10,12 @@ use File;
 
 class FundController extends Controller
 {
+    public function guard(){
+        if (Auth::user()->role != "Bendahara") {
+           abort(403, 'Anda tidak memiliki akses ke halaman ini');
+        }
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -36,7 +42,8 @@ class FundController extends Controller
      */
     public function create()
     {
-        $titlePage = " Tambah Dana";
+        $this->guard();
+        $titlePage = "Tambah Dana";
         return view('app.fund.create', compact('titlePage'));
     }
 
@@ -45,6 +52,7 @@ class FundController extends Controller
      */
     public function store(Request $request)
     {
+        $this->guard();
         $messages = [
             'required' => 'Kolom harus diisi.',
             'mimes' => "File harus berupa JPG, JPEG, atau PNG",
@@ -96,6 +104,7 @@ class FundController extends Controller
      */
     public function edit(Fund $fund)
     {
+        $this->guard();
         $titlePage = " Edit Dana";
         return view('app.fund.edit', [
             'titlePage' => $titlePage,
@@ -108,6 +117,7 @@ class FundController extends Controller
      */
     public function update(Request $request, Fund $fund)
     {
+        $this->guard();
         $messages = [
             'required' => 'Kolom harus diisi.',
             'mimes' => "File harus berupa JPG, JPEG, atau PNG",
@@ -160,7 +170,7 @@ class FundController extends Controller
      */
     public function destroy(Fund $fund)
     {
-        // dd($fund);
+        $this->guard();
         File::delete('storage/dana/'. $fund->attachment);
         $fund->delete();
 

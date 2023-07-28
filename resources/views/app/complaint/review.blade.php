@@ -61,7 +61,7 @@
             </div>
             @if($complaint->status === \App\Models\Complaint::STATUS_IN_PROGRESS)
             <div class="card">
-                <form action="{{ route('complaint.respond', $complaint->id) }}" enctype="multipart/form-data" method="POST">
+                <form class="needs-validation" novalidate="" action="{{ route('complaint.respond', $complaint->id) }}" enctype="multipart/form-data" method="POST">
                     @csrf
 
                     <div class="card-header">
@@ -70,15 +70,25 @@
                     <div class="card-body">
                         <div class="form-group">
                             <label>Isi Tanggapan</label>
-                            <textarea name="content" id="" cols="30" rows="10" class="form-control" style="min-height: 150px">{{ old('content') }}</textarea>
-                            <div class="invalid-feedback">Mohon isi tanggapannya!</div>
+                            <textarea name="content" id="" cols="30" rows="10" class="form-control" style="min-height: 150px" required>{{ old('content') }}</textarea>
+                            @error('content')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                            @enderror
                         </div>
                         <div class="form-group">
                             <label>Bukti Tanggapan</label>
-                            <input type="file" class="form-control @error('attachment') is-invalid @enderror" name="attachment" value="" accept=".png, .jpg, .jpeg" aria-describedby="photoHelp" required>
+                            <input type="file" class="form-control @error('attachment') is-invalid @enderror" name="attachment" value="" accept=".png, .jpg, .jpeg" aria-describedby="photoHelp">
                             <small id="photoHelp" class="form-text text-muted">
                                 <li>Ekstensi file harus : PNG, JPG, JPEG</li>
                             </small>
+
+                            @error('attachment')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                            @enderror
                         </div>
                     </div>
                     <div class="card-footer text-right">

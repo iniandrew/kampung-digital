@@ -59,7 +59,10 @@ class ComplaintController extends Controller
      */
     public function edit(Complaint $complaint)
     {
-        //
+        return view('app.complaint.edit', [
+            'titlePage' => 'Ubah Aduan',
+            'complaint' => $complaint,
+        ]);
     }
 
     /**
@@ -67,7 +70,11 @@ class ComplaintController extends Controller
      */
     public function update(Request $request, Complaint $complaint)
     {
-        //
+        $command = (new ComplaintAction($request))->edit($complaint);
+
+        return $command
+            ? redirect()->route('complaint.index')->with('success', 'Aduan berhasil diubah')
+            : redirect()->back()->with('error', 'Aduan gagal diubah');
     }
 
     /**

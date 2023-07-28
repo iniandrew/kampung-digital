@@ -31,7 +31,7 @@
                                         <thead>
                                         <tr>
                                             <th>No.</th>
-                                            <th>Judul Agenda</th>
+                                            <th>Judul Aduan</th>
                                             <th>Status</th>
                                             <th>Aksi</th>
                                         </tr>
@@ -55,13 +55,14 @@
                                                         @if($complaint->status === \App\Models\Complaint::STATUS_NEED_REVIEW && $complaint->user_id === auth()->user()->id)
                                                             <a href="{{ route('complaint.edit', $complaint->id) }}" class="btn btn-icon btn-sm btn-warning mr-2" data-toggle="tooltip" title="Edit Aduan"><i class="fas fa-pencil"></i></a>
                                                         @endif
-                                                        @if((auth()->user()->role === \App\Models\User::ROLE_SUPER_ADMIN || auth()->user()->role === \App\Models\User::ROLE_ADMIN) && ($complaint->status === \App\Models\Complaint::STATUS_NEED_REVIEW || $complaint->status === \App\Models\Complaint::STATUS_IN_PROGRESS))
+                                                        @if((auth()->user()->role === \App\Models\User::ROLE_SUPER_ADMIN || auth()->user()->role === \App\Models\User::ROLE_ADMIN))
                                                             @if($complaint->status === \App\Models\Complaint::STATUS_NEED_REVIEW)
-                                                                    <a href="{{ route('complaint.review', $complaint->id) }}" class="btn btn-icon btn-sm btn-warning mr-2" data-toggle="tooltip" title="Review Aduan"><i class="fas fa-file-signature"></i></a>                                                            @endif
+                                                                    <a href="{{ route('complaint.review', $complaint->id) }}" class="btn btn-icon btn-sm btn-warning mr-2" data-toggle="tooltip" title="Review Aduan"><i class="fas fa-file-signature"></i></a>
                                                             @endif
                                                             @if($complaint->status === \App\Models\Complaint::STATUS_IN_PROGRESS)
                                                                     <a href="{{ route('complaint.review', $complaint->id) }}" class="btn btn-icon btn-sm btn-primary mr-2" data-toggle="tooltip" title="Tanggapi Aduan"><i class="fas fa-check"></i></a>
                                                             @endif
+                                                        @endif
                                                             <a href="{{ route('complaint.show', $complaint->id) }}" class="btn btn-icon btn-sm btn-success" data-toggle="tooltip" title="Lihat Aduan"><i class="fas fa-eye"></i></a>
                                                     </div>
                                                 </td>

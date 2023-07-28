@@ -32,6 +32,20 @@ class ComplaintAction
         return $complaint->save();
     }
 
+    public function edit(Complaint $complaint): bool
+    {
+        $filteredRequest = $this->validate($this->request->all(), $this->rules($complaint));
+
+        $complaint->fill($filteredRequest);
+
+        if ($this->request->hasFile('attachment') ?? false) {
+            $this->deleteAttachment($complaint->attachment);
+            $complaint->attachment = $this->storePhoto($this->request->file('attachment'), 500, 'complaints');
+        }
+
+        return $complaint->save();
+    }
+
     public function review(Complaint $complaint): bool
     {
         $filteredRequest = $this->validate($this->request->all(), [
@@ -49,12 +63,16 @@ class ComplaintAction
     {
         $filteredRequest = $this->validate($this->request->all(), [
             'content' => 'required|string',
-            'attachment' => 'required|file|mimes:png,jpg,jpeg|max:2048',
+            'attachment' => 'nullable|file|mimes:png,jpg,jpeg|max:2048',
         ]);
+
+        $attachment = $this->request->hasFile('attachment')
+            ? $this->storePhoto($this->request->file('attachment'), 500, 'complaints')
+            : null;
 
         $complaint->response()->create([
             'content' => $filteredRequest['content'],
-            'attachment' => $this->storePhoto($this->request->file('attachment'), 500, 'complaints'),
+            'attachment' => $attachment,
             'user_id' => auth()->user()->id
         ]);
 
@@ -63,12 +81,12 @@ class ComplaintAction
         return $complaint->save();
     }
 
-    private function rules(): array
+    private function rules(Complaint $complaint = null): array
     {
         return [
             'title' => 'required|string',
             'content' => 'required|string',
-            'attachment' => 'required|file|mimes:png,jpg,jpeg|max:2048',
+            'attachment' => 'file|mimes:png,jpg,jpeg|max:2048|' . ($complaint ? 'nullable' : 'required'),
             'status' => 'nullable|string|in:need_review,in_progress,revision,rejected,closed',
         ];
     }

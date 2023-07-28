@@ -35,44 +35,12 @@
                                                 <th>ID</th>
                                                 <th>No.</th>
                                                 <th>Judul Agenda</th>
-                                                <th>Rentang Tanggal</th>
+                                                <th width="100px">Tanggal</th>
                                                 <th>Tempat</th>
                                                 <th>Status</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
-                                        {{-- <tbody>
-                                            @foreach ($dataAgenda as $iteration => $item)
-                                                <tr>
-                                                    <td>{{$iteration+1}}</td>
-                                                    <td>{{$item->title}}</td>
-                                                    <td>{{ date('d M, Y', strtotime($item->start_date)) }} - {{ date('d M, Y', strtotime($item->end_date)) }}</td>
-                                                    <td>{{$item->venue}}</td>
-                                                    <td>
-                                                        @if ($item->status == 'Arsip')
-                                                            <div class="badge badge-warning">Arsip</div>
-                                                        @elseif($item->status == 'Segera')
-                                                            <div class="badge badge-info">Segera</div>
-                                                         @else
-                                                            <div class="badge badge-success">Selesai</div>
-                                                        @endif
-                                                    </td>
-                                                    <td>
-                                                        <form action="{{ route('agenda.destroy', $item->id) }}" class="formDelete" method="POST">
-                                                            @if (Auth::user()->role == 'Super Admin')
-                                                                <a href="{{ route('agenda.edit', $item->id) }}" class="btn btn-info" title="Edit"><span class="fas fa-edit"></span></a>
-
-                                                                @csrf
-                                                                @method('DELETE')
-                                                                <button type="submit" class="btn btn-danger btn-delete" data-name="{{ $item->title }}"><i class="fas fa-trash"></i></button>
-                                                                @else
-                                                                <a class="btn btn-primary" href="{{ route('agenda.show', $item->id) }}" title="Detail"><i class="fas fa-info"></i></a>
-                                                            @endif
-                                                        </form>
-                                                    </td>
-                                                </tr>
-                                            @endforeach
-                                        </tbody> --}}
                                     </table>
                                 </div>
                             </div>
@@ -102,7 +70,10 @@
                 { data: "id", name: "id", visible: false },
                 { data: "DT_RowIndex", name: "DT_RowIndex", orderable: false, searchable: false },
                 { data: "title", name: "title" },
-                { data: "start_time", name: "start_time" },
+                { data: "start_date", "render": function (value) {
+                              if (value === null) return "";
+                              return moment(value).format('DD MMMM YYYY'); }
+                },
                 { data: "venue", name: "venue" },
                 { data: "status", name: "status", orderable: false, searchable: false },
                 { data: "actions", name: "actions", orderable: false, searchable: false },

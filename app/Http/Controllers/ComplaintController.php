@@ -74,4 +74,30 @@ class ComplaintController extends Controller
     {
         //
     }
+
+    public function review(Complaint $complaint)
+    {
+        return view('app.complaint.review', [
+            'titlePage' => 'Review Aduan',
+            'complaint' => $complaint,
+        ]);
+    }
+
+    public function reviewAction(Request $request, Complaint $complaint): \Illuminate\Http\RedirectResponse
+    {
+        $command = (new ComplaintAction($request))->review($complaint);
+
+        return $command
+            ? redirect()->route('complaint.index')->with('success', 'Aduan berhasil direview')
+            : redirect()->back()->with('error', 'Aduan gagal direview');
+    }
+
+    public function respond(Request $request, Complaint $complaint): \Illuminate\Http\RedirectResponse
+    {
+        $command = (new ComplaintAction($request))->respond($complaint);
+
+        return $command
+            ? redirect()->route('complaint.index')->with('success', 'Aduan berhasil ditanggapi')
+            : redirect()->back()->with('error', 'Aduan gagal ditanggapi');
+    }
 }

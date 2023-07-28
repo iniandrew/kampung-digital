@@ -15,7 +15,6 @@
                     <div class="breadcrumb-item">Daftar Aduan</div>
                 </div>
             </div>
-            {{-- edit content --}}
             <div class="section-body">
                 <div class="row">
                     <div class="col-12">
@@ -46,7 +45,9 @@
                                                         @if($complaint->status === \App\Models\Complaint::STATUS_NEED_REVIEW && $complaint->user_id === auth()->user()->id)
                                                             <a href="{{ route('complaint.edit', $complaint->id) }}" class="btn btn-icon btn-sm btn-warning "><i class="fas fa-pencil"></i></a>
                                                         @endif
-
+                                                        @if((auth()->user()->role === \App\Models\User::ROLE_SUPER_ADMIN || auth()->user()->role === \App\Models\User::ROLE_ADMIN) && ($complaint->status === \App\Models\Complaint::STATUS_NEED_REVIEW || $complaint->status === \App\Models\Complaint::STATUS_IN_PROGRESS))
+                                                            <a href="{{ route('complaint.review', $complaint->id) }}" class="btn btn-icon btn-sm btn-dark mr-2"><i class="fas fa-file"></i></a>
+                                                        @endif
                                                             <a href="{{ route('complaint.show', $complaint->id) }}" class="btn btn-icon btn-sm btn-success"><i class="fas fa-eye"></i></a>
                                                     </div>
                                                 </td>

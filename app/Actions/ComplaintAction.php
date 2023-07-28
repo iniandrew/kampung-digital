@@ -32,6 +32,37 @@ class ComplaintAction
         return $complaint->save();
     }
 
+    public function review(Complaint $complaint): bool
+    {
+        $filteredRequest = $this->validate($this->request->all(), [
+            'review' => 'required|string|in:approve,reject',
+        ]);
+
+        $complaint->status = $filteredRequest['review'] === 'approve'
+            ? Complaint::STATUS_IN_PROGRESS
+            : Complaint::STATUS_REJECTED;
+
+        return $complaint->save();
+    }
+
+    public function respond(Complaint $complaint): bool
+    {
+        $filteredRequest = $this->validate($this->request->all(), [
+            'content' => 'required|string',
+            'attachment' => 'required|file|mimes:png,jpg,jpeg|max:2048',
+        ]);
+
+        $complaint->response()->create([
+            'content' => $filteredRequest['content'],
+            'attachment' => $this->storePhoto($this->request->file('attachment'), 500, 'complaints'),
+            'user_id' => auth()->user()->id
+        ]);
+
+        $complaint->status = Complaint::STATUS_CLOSED;
+
+        return $complaint->save();
+    }
+
     private function rules(): array
     {
         return [

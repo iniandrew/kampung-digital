@@ -42,3 +42,9 @@ Route::middleware(['auth'])->group(function () {
 
     Route::resource('/complaint', ComplaintController::class);
 });
+
+Route::middleware('auth')->prefix('complaint')->name('complaint.')->group(function () {
+    Route::get('{complaint}/review', [ComplaintController::class, 'review'])->name('review');
+    Route::post('{complaint}/review', [ComplaintController::class, 'reviewAction'])->name('review.store');
+    Route::post('{complaint}/respond', [ComplaintController::class, 'respond'])->name('respond');
+});

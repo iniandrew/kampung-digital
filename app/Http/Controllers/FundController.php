@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Validator;
 use Auth;
 use File;
+use PDF;
 
 class FundController extends Controller
 {
@@ -96,7 +97,11 @@ class FundController extends Controller
      */
     public function show(Fund $fund)
     {
-        //
+        $titlePage = " Detail Dana";
+        return view('app.fund.show', [
+            'titlePage' => $titlePage,
+            'dana' => $fund
+        ]);
     }
 
     /**
@@ -175,5 +180,24 @@ class FundController extends Controller
         $fund->delete();
 
         return redirect()->route('fund.index')->with('success', 'Berhasil menghapus dana');
+    }
+
+    public function export(){
+        $this->guard();
+        $funds = Fund::all();
+        $income = Fund::where('category', 'Pemasukan')->get();
+        $inflow = 0;
+        foreach ($income as $value) {
+            $inflow += $value->amount;
+        }
+
+        $spending = Fund::where('category', 'Pengeluaran')->get();
+        $outlay = 0;
+        foreach ($spending as $item) {
+            $outlay += $item->amount;
+        }
+
+        $pdf = PDF::loadView('app.fund.export', compact('funds', 'inflow', 'outlay'));
+        return $pdf->download('Pendanaan.pdf');
     }
 }

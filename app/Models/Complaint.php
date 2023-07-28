@@ -41,4 +41,15 @@ class Complaint extends Model
     {
         return new Attribute(fn () => url('storage/' . $this->attachment));
     }
+
+    public function statusLabel(): Attribute
+    {
+        return new Attribute(fn () => match ($this->status) {
+            self::STATUS_NEED_REVIEW => 'Menunggu Review',
+            self::STATUS_IN_PROGRESS => 'Sedang Diproses',
+            self::STATUS_CLOSED => 'Selesai',
+            self::STATUS_REJECTED => 'Ditolak',
+            default => 'Tidak Diketahui',
+        });
+    }
 }

@@ -12,7 +12,7 @@
                 <div class="section-header-breadcrumb">
                     <div class="breadcrumb-item active"><a href="{{ route('home') }}">Dashboard</a></div>
                     <div class="breadcrumb-item"><a href="#">Aduan</a></div>
-                    <div class="breadcrumb-item">Daftar Aduan</div>
+                    <div class="breadcrumb-item">Data Aduan</div>
                 </div>
             </div>
             <div class="section-body">
@@ -21,7 +21,9 @@
                         <div class="card">
                             <div class="card-header">
                                 <h4>Data Aduan</h4>
-                                <a href="{{ route('complaint.create') }}" class="btn btn-primary btn-add">Tambah Aduan</a>
+                                @if(auth()->user()->role === \App\Models\User::ROLE_WARGA)
+                                    <a href="{{ route('complaint.create') }}" class="btn btn-primary btn-add">Tambah Aduan</a>
+                                @endif
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
@@ -39,16 +41,28 @@
                                             <tr>
                                                 <td>{{ $key + 1 }}</td>
                                                 <td>{{ $complaint->title }}</td>
-                                                <td>{{ $complaint->status }}</td>
+                                                <td>
+                                                    <span
+                                                        class="badge @if($complaint->status === \App\Models\Complaint::STATUS_NEED_REVIEW) badge-warning
+                                                                     @elseif($complaint->status === \App\Models\Complaint::STATUS_IN_PROGRESS) badge-info
+                                                                     @elseif($complaint->status === \App\Models\Complaint::STATUS_CLOSED) badge-success
+                                                                     @else badge-danger
+                                                               @endif"
+                                                    >{{ $complaint->statusLabel }}</span>
+                                                </td>
                                                 <td>
                                                     <div class="d-flex">
                                                         @if($complaint->status === \App\Models\Complaint::STATUS_NEED_REVIEW && $complaint->user_id === auth()->user()->id)
-                                                            <a href="{{ route('complaint.edit', $complaint->id) }}" class="btn btn-icon btn-sm btn-warning "><i class="fas fa-pencil"></i></a>
+                                                            <a href="{{ route('complaint.edit', $complaint->id) }}" class="btn btn-icon btn-sm btn-warning mr-2" data-toggle="tooltip" title="Edit Aduan"><i class="fas fa-pencil"></i></a>
                                                         @endif
                                                         @if((auth()->user()->role === \App\Models\User::ROLE_SUPER_ADMIN || auth()->user()->role === \App\Models\User::ROLE_ADMIN) && ($complaint->status === \App\Models\Complaint::STATUS_NEED_REVIEW || $complaint->status === \App\Models\Complaint::STATUS_IN_PROGRESS))
-                                                            <a href="{{ route('complaint.review', $complaint->id) }}" class="btn btn-icon btn-sm btn-dark mr-2"><i class="fas fa-file"></i></a>
-                                                        @endif
-                                                            <a href="{{ route('complaint.show', $complaint->id) }}" class="btn btn-icon btn-sm btn-success"><i class="fas fa-eye"></i></a>
+                                                            @if($complaint->status === \App\Models\Complaint::STATUS_NEED_REVIEW)
+                                                                    <a href="{{ route('complaint.review', $complaint->id) }}" class="btn btn-icon btn-sm btn-warning mr-2" data-toggle="tooltip" title="Review Aduan"><i class="fas fa-file-signature"></i></a>                                                            @endif
+                                                            @endif
+                                                            @if($complaint->status === \App\Models\Complaint::STATUS_IN_PROGRESS)
+                                                                    <a href="{{ route('complaint.review', $complaint->id) }}" class="btn btn-icon btn-sm btn-primary mr-2" data-toggle="tooltip" title="Tanggapi Aduan"><i class="fas fa-check"></i></a>
+                                                            @endif
+                                                            <a href="{{ route('complaint.show', $complaint->id) }}" class="btn btn-icon btn-sm btn-success" data-toggle="tooltip" title="Lihat Aduan"><i class="fas fa-eye"></i></a>
                                                     </div>
                                                 </td>
                                             </tr>

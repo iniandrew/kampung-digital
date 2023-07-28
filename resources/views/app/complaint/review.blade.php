@@ -25,12 +25,12 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Isi Aduan</label>
-                                    <textarea name="content" id="" cols="30" rows="10" style="min-height: 150px" class="form-control" required readonly>{{ $complaint->isi }}</textarea>
+                                    <textarea name="content" id="" cols="30" rows="10" style="min-height: 150px" class="form-control" required readonly>{{ $complaint->content }}</textarea>
                                 </div>
                                 <div class="form-group">
                                     <label for="">Bukti Aduan</label>
                                     <div class="input-group mb-3">
-                                        <img src="{{ $complaint->proof }}" width="500" height="500" alt="Bukti Aduan">
+                                        <img src="{{ $complaint->proof }}" alt="Bukti Aduan">
                                     </div>
                                 </div>
                             </div>
@@ -50,8 +50,8 @@
                                     </div>
                                 </div>
                                 <div class="d-flex">
-                                    <button class="btn btn-primary">Submit</button>
                                     <button class="btn btn-danger mr-2">Batal</button>
+                                    <button class="btn btn-primary">Submit</button>
                                 </div>
                             </div>
                             @endif
@@ -70,18 +70,15 @@
                     <div class="card-body">
                         <div class="form-group">
                             <label>Isi Tanggapan</label>
-                            <textarea name="content" id="" cols="30" rows="10" class="form-control input-tanggapan">{{ old('content') }}</textarea>
+                            <textarea name="content" id="" cols="30" rows="10" class="form-control" style="min-height: 150px">{{ old('content') }}</textarea>
                             <div class="invalid-feedback">Mohon isi tanggapannya!</div>
                         </div>
                         <div class="form-group">
                             <label>Bukti Tanggapan</label>
-                            <div class="custom-file">
-                                <input type="file" class="custom-file-input image input-tanggapan" id="customFile" name="attachment">
-                                <label class="custom-file-label" for="customFile">Choose file</label>
-                            </div>
-                            <span class="infoFile">File extensi : JPG, PNG, JPEG</span><br>
-                            <span class="infoFile">Ukuran Max File: 1MB</span>
-                            <div class="invalid-feedback">Mohon lampirkan bukti tanggapan!</div>
+                            <input type="file" class="form-control @error('attachment') is-invalid @enderror" name="attachment" value="" accept=".png, .jpg, .jpeg" aria-describedby="photoHelp" required>
+                            <small id="photoHelp" class="form-text text-muted">
+                                <li>Ekstensi file harus : PNG, JPG, JPEG</li>
+                            </small>
                         </div>
                     </div>
                     <div class="card-footer text-right">

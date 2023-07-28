@@ -38,13 +38,16 @@
                         </div>
                         <div class="form-group">
                             <label>Bukti Aduan</label>
-                            <div class="custom-file">
-                                <input type="file" class="custom-file-input image @error('attachment') is-invalid @enderror" id="customFile" name="attachment" required>
-                                <label class="custom-file-label" for="customFile">Choose file</label>
+                            <input type="file" class="form-control @error('attachment') is-invalid @enderror" name="attachment" value="" accept=".png, .jpg, .jpeg" aria-describedby="photoHelp" required>
+                            <small id="photoHelp" class="form-text text-muted">
+                                <li>Ekstensi file harus : PNG, JPG, JPEG</li>
+                            </small>
+
+                            @error('attachments.photo')
+                            <div class="invalid-feedback">
+                                {{ $message }}
                             </div>
-                            <span class="infoFile">File extensi : JPG, PNG, JPEG</span><br>
-                            <span class="infoFile">Ukuran Max File: 1MB</span>
-                            <div class="invalid-feedback">Mohon isi bukti aduan!</div>
+                            @enderror
                         </div>
                     </div>
                     <div class="card-footer text-right">

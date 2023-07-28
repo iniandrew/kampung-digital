@@ -46,23 +46,10 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="msg left-msg">
-                            <div class="msg-img"
-                                 style="background-image: url(https://th.bing.com/th/id/OIP.lXLBjGaneyPrkTzJsdtqjgHaHa?pid=ImgDet&w=512&h=512&rs=1)">
-                            </div>
-                            <div class="msg-bubble">
-                                <div class="msg-info">
-                                    <div class="msg-info-name">{{ $complaint->response->user->name }}</div>
-                                    <div class="msg-info-time">{{ date('d M, Y', strtotime($complaint->response->created_at)) }}</div>
-                                </div>
-                                <div class="msg-text">
-                                    {{ $complaint->response->content }}
-                                </div>
-                            </div>
-                        </div>
-                        @if($complaint->response->attachment)
+                        @if($complaint->response)
                             <div class="msg left-msg">
-                                <div class="msg-img" style="background-image: url(https://th.bing.com/th/id/OIP.lXLBjGaneyPrkTzJsdtqjgHaHa?pid=ImgDet&w=512&h=512&rs=1)">
+                                <div class="msg-img"
+                                     style="background-image: url(https://th.bing.com/th/id/OIP.lXLBjGaneyPrkTzJsdtqjgHaHa?pid=ImgDet&w=512&h=512&rs=1)">
                                 </div>
                                 <div class="msg-bubble">
                                     <div class="msg-info">
@@ -70,11 +57,26 @@
                                         <div class="msg-info-time">{{ date('d M, Y', strtotime($complaint->response->created_at)) }}</div>
                                     </div>
                                     <div class="msg-text">
-                                        Bukti Tanggapan<br>
-                                        <a href="{{ $complaint->response->proof }}" target="_blank"><img src="{{ $complaint->response->proof }}" alt="" width="30%"></a>
+                                        {{ $complaint->response->content }}
                                     </div>
                                 </div>
                             </div>
+                            @if($complaint->response->attachment)
+                                <div class="msg left-msg">
+                                    <div class="msg-img" style="background-image: url(https://th.bing.com/th/id/OIP.lXLBjGaneyPrkTzJsdtqjgHaHa?pid=ImgDet&w=512&h=512&rs=1)">
+                                    </div>
+                                    <div class="msg-bubble">
+                                        <div class="msg-info">
+                                            <div class="msg-info-name">{{ $complaint->response->user->name }}</div>
+                                            <div class="msg-info-time">{{ date('d M, Y', strtotime($complaint->response->created_at)) }}</div>
+                                        </div>
+                                        <div class="msg-text">
+                                            Bukti Tanggapan<br>
+                                            <a href="{{ $complaint->response->proof }}" target="_blank"><img src="{{ $complaint->response->proof }}" alt="" width="30%"></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endif
                         @endif
                     </main>
                 </div>

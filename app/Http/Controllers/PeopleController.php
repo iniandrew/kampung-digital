@@ -6,9 +6,22 @@ use Illuminate\Http\Request;
 use App\Actions\PeopleAction;
 use App\Models\People;
 use Validator;
+use Auth;
 
 class PeopleController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(function ($request, $next) {
+            $this->user= Auth::user();
+
+            if (Auth::user()->role != "Super Admin" || Auth::user()->role != "Admin") {
+                abort(403, 'Anda tidak memiliki akses ke halaman ini');
+            }
+
+            return $next($request);
+        });
+    }
     /**
      * Display a listing of the resource.
      */

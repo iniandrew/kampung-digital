@@ -22,11 +22,11 @@
                 <a href="{{ route('fund.index') }}" class="nav-link"><i class="fas fa-wallet"></i><span>Pendanaan</span></a>
             </li>
 
-            {{-- @if (Auth::user()->jabatan->nama_jabatan == 'Super Admin' || Auth::user()->jabatan->nama_jabatan == 'Admin') --}}
+            @if (Auth::user()->role == 'Super Admin' || Auth::user()->role == 'Admin')
                 <li class="menu {{ request()->routeIs('people.*') ? 'active' : '' }}">
                     <a href="{{ route('people.index') }}" class="nav-link"><i class="fas fa-users"></i><span>Data Warga</span></a>
                 </li>
-            {{-- @endif --}}
+            @endif
             @if (Auth::user()->role == 'Super Admin')
                 <li class="menu {{ request()->routeIs('user.*') ? 'active' : '' }}">
                     <a href="{{ route('user.index') }}" class="nav-link"><i class="fas fa-user"></i><span>Data Pengguna</span></a>

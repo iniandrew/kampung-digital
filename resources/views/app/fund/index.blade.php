@@ -64,7 +64,7 @@
                                     </table>
                                 </div>
                                 <div>
-                                    <h4>Informasi Saldo saat ini</h4>
+                                    <h4>Informasi Saldo Saat Ini</h4>
                                     <p>Total Pemasukan : Rp. {{number_format($inflow,2,',','.')}}</p>
                                     <p>Total Pengeluaran : Rp. {{number_format($outlay,2,',','.')}}</p>
                                     <h4>Total Sisa Saldo : Rp. {{number_format($inflow - $outlay,2,',','.')}}</h4>

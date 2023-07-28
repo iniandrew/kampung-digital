@@ -55,7 +55,7 @@
         <p>Total Pemasukan : Rp. {{number_format($inflow,2,',','.')}}</p>
         <p>Total Pengeluaran : Rp. {{number_format($outlay,2,',','.')}}</p>
         <h4>Total Sisa Saldo : Rp. {{number_format($inflow - $outlay,2,',','.')}}</h4>
-        <p style="font-style: italic; margin-top: 30px">Dicetak pada {{ date('Y-m-d H:i:s') }}</p>
+        <p style="font-style: italic; margin-top: 30px">Dicetak pada {{ date('d M Y H:i:s') }}</p>
     </div>
 </body>
 </html>

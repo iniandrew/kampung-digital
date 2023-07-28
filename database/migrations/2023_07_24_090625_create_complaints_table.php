@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('title');
             $table->text('content');
             $table->string('attachment')->nullable();
-            $table->enum('status', [Complaint::STATUS_NEED_REVIEW, Complaint::STATUS_IN_PROGRESS, Complaint::STATUS_REVISION, Complaint::STATUS_REJECTED, Complaint::STATUS_CLOSED])->default(Complaint::STATUS_NEED_REVIEW);
+            $table->enum('status', [Complaint::STATUS_NEED_REVIEW, Complaint::STATUS_IN_PROGRESS, Complaint::STATUS_REJECTED, Complaint::STATUS_CLOSED])->default(Complaint::STATUS_NEED_REVIEW);
             $table->timestamps();
         });
     }

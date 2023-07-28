@@ -15,19 +15,20 @@
             <li class="menu {{ request()->routeIs('agenda.*') ? 'active' : '' }}">
                 <a href="{{ route('agenda.index') }}" class="nav-link"><i class="fas fa-calendar-alt"></i><span>Agenda</span></a>
             </li>
-            <li class="menu">
-                <a href="#" class="nav-link"><i class="fas fa-file-alt"></i><span>Aduan</span></a>
+            <li class="menu {{ request()->routeIs('complaint.*') ? 'active' : '' }}">
+                <a href="{{ route('complaint.index') }}" class="nav-link"><i class="fas fa-file-alt"></i><span>Aduan</span></a>
             </li>
-            <li class="menu">
-                <a href="{{ route('fund.index') }}" class="nav-link"><i class="fas fa-wallet"></i><span>Pendanaan</span></a>
-            </li>
-
-            @if (Auth::user()->role == 'Super Admin' || Auth::user()->role == 'Admin')
+            @if(auth()->user()->role === \App\Models\User::ROLE_BENDAHARA)
+                <li class="menu">
+                    <a href="{{ route('fund.index') }}" class="nav-link"><i class="fas fa-wallet"></i><span>Pendanaan</span></a>
+                </li>
+            @endif
+            @if (auth()->user()->role === \App\Models\User::ROLE_SUPER_ADMIN || auth()->user()->role === \App\Models\User::ROLE_ADMIN)
                 <li class="menu {{ request()->routeIs('people.*') ? 'active' : '' }}">
                     <a href="{{ route('people.index') }}" class="nav-link"><i class="fas fa-users"></i><span>Data Warga</span></a>
                 </li>
             @endif
-            @if (Auth::user()->role == 'Super Admin')
+            @if (auth()->user()->role === \App\Models\User::ROLE_SUPER_ADMIN)
                 <li class="menu {{ request()->routeIs('user.*') ? 'active' : '' }}">
                     <a href="{{ route('user.index') }}" class="nav-link"><i class="fas fa-user"></i><span>Data Pengguna</span></a>
                 </li>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\ComplaintAction;
 use App\Models\Complaint;
 use Illuminate\Http\Request;
 
@@ -12,7 +13,12 @@ class ComplaintController extends Controller
      */
     public function index()
     {
-        //
+        $complaints = Complaint::query()->get();
+
+        return view('app.complaint.index', [
+            'titlePage' => 'Aduan',
+            'complaints' => $complaints,
+        ]);
     }
 
     /**
@@ -20,7 +26,9 @@ class ComplaintController extends Controller
      */
     public function create()
     {
-        //
+        return view('app.complaint.create', [
+            'titlePage' => 'Buat Aduan',
+        ]);
     }
 
     /**
@@ -28,7 +36,11 @@ class ComplaintController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $command = (new ComplaintAction($request))->create();
+
+        return $command
+            ? redirect()->route('complaint.index')->with('success', 'Aduan berhasil dibuat')
+            : redirect()->back()->with('error', 'Aduan gagal dibuat');
     }
 
     /**

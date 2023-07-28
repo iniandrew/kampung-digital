@@ -11,15 +11,14 @@ class Complaint extends Model
 
     PUBLIC CONST STATUS_NEED_REVIEW = 'need_review';
     PUBLIC CONST STATUS_IN_PROGRESS = 'in_progress';
-    PUBLIC CONST STATUS_REVISION = 'revision';
-    PUBLIC CONST STATUS_REJECTED = 'rejected';
     PUBLIC CONST STATUS_CLOSED = 'closed';
+    PUBLIC CONST STATUS_REJECTED = 'rejected';
 
     protected $table = 'complaints';
 
     protected $fillable = [
         'title',
-        'body',
+        'content',
         'attachment',
         'status',
         'user_id',

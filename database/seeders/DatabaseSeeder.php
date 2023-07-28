@@ -16,6 +16,6 @@ class DatabaseSeeder extends Seeder
     {
         People::factory(100)->create();
         $this->call(UserSeeder::class);
-
+        Agenda::factory(100)->create();
     }
 }

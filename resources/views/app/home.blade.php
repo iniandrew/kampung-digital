@@ -47,7 +47,7 @@
                                 <h4>Total Warga</h4>
                             </div>
                             <div class="card-body">
-                                20
+                                {{ $villages }}
                             </div>
                         </div>
                     </div>
@@ -99,20 +99,20 @@
                         </div>
                         <div class="card-body">
                             <ul class="list-unstyled list-unstyled-border">
-                                {{-- @foreach ($agenda as $list)
+                                @foreach ($schedules as $schedule)
                                     <li class="media">
                                         <div class="media-body">
-                                            <div class="float-right text-primary">{{ date('d M, Y', strtotime($list->created_at)) }}</div>
-                                            <div class="media-title">{{ $list->judul }}</div>
+                                            <div class="float-right text-primary">{{ date('d M, Y', strtotime($schedule->created_at)) }}</div>
+                                            <div class="media-title">{{ $schedule->title }}</div>
                                             <span class="text-small text-muted">
-                                                {!! Str::words($list->isi, 30, '...') !!}
+                                                {!! Str::words($schedule->content, 30, '...') !!}
                                             </span>
                                         </div>
                                     </li>
-                                @endforeach --}}
+                                @endforeach
                             </ul>
                             <div class="text-center pt-1 pb-1">
-                                <a href="agenda" class="btn btn-primary btn-lg btn-round">
+                                <a href="{{ route('agenda.index') }}" class="btn btn-primary btn-lg btn-round">
                                 Lihat Semua
                                 </a>
                             </div>

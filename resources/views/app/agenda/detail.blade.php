@@ -6,17 +6,15 @@
                 <h1>{{$titlePage}}</h1>
                 <div class="section-header-breadcrumb">
                     <div class="breadcrumb-item active"><a href="{{ route('home') }}">Dashboard</a></div>
-                    <div class="breadcrumb-item"><a href="agenda">Agenda</a></div>
-                    <div class="breadcrumb-item"><a href="{{ route('agenda.index') }}">List Agenda</a></div>
+                    <div class="breadcrumb-item"><a href="{{ route('agenda.index') }}">Data Agenda</a></div>
                     <div class="breadcrumb-item">Detail Agenda</div>
                 </div>
             </div>
 
             {{-- edit content --}}
             <div class="card">
-                <form class="needs-validation" novalidate="" method="POST" action="{{ route('agenda.update', $agenda->id) }}">
+                <form class="needs-validation" novalidate="" method="POST" action="#">
                     @csrf
-                    @method('PUT')
                     <div class="card-header">
                       <h4>Form Detail Agenda</h4>
                     </div>
@@ -28,7 +26,7 @@
                         </div>
                         <div class="form-group">
                             <label>Isi Agenda</label>
-                            <textarea name="content" id="" cols="30" rows="10" class="form-control" required readonly>{{ $agenda->content }}</textarea>
+                            <textarea name="content" id="" cols="30" rows="10" style="height: 100px" class="form-control" required readonly>{{ $agenda->content }}</textarea>
                             <div class="invalid-feedback">Rincian agendanya?</div>
                         </div>
                         <div class="form-group">
@@ -111,18 +109,4 @@
         </section>
     </div>
 @endsection
-@push('titlePages')
-    {{$titlePage}}
-@endpush
-@push('css')
-<link rel="stylesheet" href="{{ asset('css/timepicker.min.css') }}">
-@endpush
-@push('js')
-<script src="{{ asset('js/timepicker.min.js') }}"></script>
-    <script type="text/javascript">
-        $(document).ready(function(){
-            $('#start').timepicker();
-            $('#finish').timepicker();
-        });
-    </script>
-@endpush
+

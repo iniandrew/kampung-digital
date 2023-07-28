@@ -107,7 +107,7 @@
                 </div>
             </div>
             <div class="col-xl-6" data-aos="flip-down" data-aos-duration="1500">
-                <img src="{{ Vite::asset('resources/images/Feedback-amico.png') }}" width="500" alt="" class="img-aduan">
+                <img src="{{ Vite::asset('resources/images/Feedback-amico-min.png') }}" width="500" alt="" class="img-aduan">
             </div>
         </div>
         <div class="row">
@@ -139,7 +139,7 @@
                 </div>
             </div>
             <div class="col-xl-6" data-aos="zoom-in-up" data-aos-duration="1500">
-                <img src="{{ Vite::asset('resources/images/Schedule-amico.png') }}" width="530" alt="" class="img-agenda">
+                <img src="{{ Vite::asset('resources/images/Schedule-amico-min.png') }}" width="530" alt="" class="img-agenda">
             </div>
         </div>
     </div>
@@ -148,7 +148,7 @@
     <div class="container dana">
         <div class="row">
             <div class="col-xl-6" data-aos="zoom-in-right" data-aos-duration="1500">
-                <img src="{{ Vite::asset('resources/images/Spreadsheets-pana.png') }}" width="530" alt="" class="img-dana">
+                <img src="{{ Vite::asset('resources/images/Spreadsheets-pana-min.png') }}" width="530" alt="" class="img-dana">
             </div>
             <div class="col-xl-6">
                 <h1 class="title-dana">Dana Desa</h1>

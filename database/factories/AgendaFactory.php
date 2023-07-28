@@ -18,13 +18,15 @@ class AgendaFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id' => fake()->numberBetween(11111, 99999),
-            'title' => fake()->randomElement([Agenda::TITLE_KERJA_BAKTI, Agenda::TITLE_MAKAN, Agenda::TITLE_KONDANGAN, Agenda::TITLE_LOMBA, Agenda::TITLE_KARANG_TARUNA, Agenda::TITLE_PENTAS_SENI]),
-            'content' => fake()->name(),
+            'user_id' => '1',
+            'title' => fake()->word(),
+            'content' => fake()->paragraph(),
+            'venue' => fake()->streetAddress(),
             'start_date' => fake()->date(),
             'end_date' => fake()->date(),
-            'venue' => fake()->address(),
-            'status' => fake()->randomElement([Agenda::STATUS_DONE, Agenda::STATUS_NOT_YET]),
+            'start_time' => fake()->time(),
+            'end_time' => fake()->time(),
+            'status' => fake()->randomElement([Agenda::STATUS_ARCHIVE ,Agenda::STATUS_DONE, Agenda::STATUS_COMMING_SOON]),
         ];
     }
 }

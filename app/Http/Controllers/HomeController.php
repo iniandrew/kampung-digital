@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\People;
+use App\Models\Agenda;
 
 class HomeController extends Controller
 {
@@ -23,7 +25,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $peoples = People::all()->count();
+        $schedules = Agenda::orderBy('created_at', 'desc')->limit(5)->get();
+        return view('app.home', [
+            'villages' => $peoples,
+            'schedules' => $schedules
+        ]);
     }
 
     public function changePassword(){

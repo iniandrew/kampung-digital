@@ -32,7 +32,7 @@
                                         <thead>
                                             <tr>
                                                 <th>ID</th>
-                                                <th class="text-center">No.</th>
+                                                <th>No.</th>
                                                 <th>Nama Warga</th>
                                                 <th>NIK</th>
                                                 <th>Alamat</th>

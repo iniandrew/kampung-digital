@@ -4,11 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PeopleController;
 use App\Http\Controllers\UserController;
-<<<<<<< Updated upstream
 use App\Http\Controllers\FundController;
-=======
 use App\Http\Controllers\AgendaController;
->>>>>>> Stashed changes
 
 /*
 |--------------------------------------------------------------------------
@@ -37,11 +34,9 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('/user', UserController::class);
     Route::get('/getUser', [UserController::class, 'getData'])->name('user.getData');
 
-<<<<<<< Updated upstream
     Route::resource('/fund', FundController::class);
-=======
-    Route::resource('/agenda', AgendaController::class);
-    Route::get('/getAgenda', [AgendaController::class, 'getData'])->name('user.getData');
 
->>>>>>> Stashed changes
+    Route::resource('/agenda', AgendaController::class);
+    Route::get('/getAgenda', [AgendaController::class, 'getData'])->name('agenda.getData');
+
 });

@@ -41,7 +41,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        $peoples = People::where('account', 0)->get();
+        $peoples = People::where('has_account', 0)->get();
 
         return view('app.user.create', [
             'titlePage' => "Tambah Pengguna",

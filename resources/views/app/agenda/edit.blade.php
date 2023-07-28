@@ -128,7 +128,9 @@
 @push('script')
     <script type="text/javascript">
         $(document).ready(function(){
-            $('.timepicker').timepicker();
+            $('.timepicker').timepicker({
+                showMeridian: false,
+            });
         });
     </script>
 @endpush

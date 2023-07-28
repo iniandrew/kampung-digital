@@ -48,7 +48,10 @@ class ComplaintController extends Controller
      */
     public function show(Complaint $complaint)
     {
-        //
+        return view('app.complaint.show', [
+            'titlePage' => 'Detail Aduan',
+            'complaint' => $complaint,
+        ]);
     }
 
     /**

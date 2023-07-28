@@ -9,9 +9,9 @@ class Agenda extends Model
 {
     use HasFactory;
 
-    public const STATUS_ARCHIVE = 'arsip';
-    public const STATUS_COMMING_SOON = 'segera';
-    public const STATUS_DONE = 'selesai';
+    public const STATUS_ARCHIVE = 'Arsip';
+    public const STATUS_COMMING_SOON = 'Segera';
+    public const STATUS_DONE = 'Selesai';
 
     protected $table = 'agendas';
 

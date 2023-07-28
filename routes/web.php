@@ -35,7 +35,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/getUser', [UserController::class, 'getData'])->name('user.getData');
 
     Route::resource('/fund', FundController::class);
+
     Route::resource('/agenda', AgendaController::class);
-    Route::get('/getAgenda', [AgendaController::class, 'getData'])->name('user.getData');
+    Route::get('/getAgenda', [AgendaController::class, 'getData'])->name('agenda.getData');
 
 });

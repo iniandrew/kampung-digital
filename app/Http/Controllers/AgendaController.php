@@ -22,13 +22,7 @@ class AgendaController extends Controller
     public function index()
     {
         $titlePage = "Agenda";
-        if (Auth::user()->role == 'Admin') {
-            $dataAgenda = Agenda::all();
-        } else {
-            $dataAgenda = Agenda::where('status', '!=', 'arsip')->get();
-        }
-
-        return view('app.agenda.index', compact('titlePage', 'dataAgenda'));
+        return view('app.agenda.index', compact('titlePage'));
     }
 
     /**
@@ -144,5 +138,25 @@ class AgendaController extends Controller
         $agenda->delete();
 
         return redirect()->route('agenda.index')->with('success', 'Berhasil mengubah data agenda');
+    }
+
+    public function getData(Request $request){
+        if (Auth::user()->role == 'Super Admin') {
+            $agendas = Agenda::all();
+        } else {
+            $agendas = Agenda::where('status', '!=', 'arsip')->get();
+        }
+
+        if ($request->ajax()) {
+            return datatables()->of($agendas)
+                ->addIndexColumn()
+                ->addColumn('status', function($agendas) {
+                    return view('app.agenda.status', compact('agendas'));
+                })
+                ->addColumn('actions', function($agendas) {
+                    return view('app.agenda.action', compact('agendas'));
+                })
+                ->toJson();
+        }
     }
 }

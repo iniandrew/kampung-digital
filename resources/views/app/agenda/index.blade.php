@@ -29,10 +29,11 @@
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
-                                    <table class="table table-striped" id="tableData">
+                                    <table class="table table-striped responsive" id="tableData">
                                         <thead>
                                             <tr>
-                                                <th class="text-center">No.</th>
+                                                <th>ID</th>
+                                                <th>No.</th>
                                                 <th>Judul Agenda</th>
                                                 <th>Rentang Tanggal</th>
                                                 <th>Tempat</th>
@@ -40,7 +41,7 @@
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
+                                        {{-- <tbody>
                                             @foreach ($dataAgenda as $iteration => $item)
                                                 <tr>
                                                     <td>{{$iteration+1}}</td>
@@ -48,9 +49,9 @@
                                                     <td>{{ date('d M, Y', strtotime($item->start_date)) }} - {{ date('d M, Y', strtotime($item->end_date)) }}</td>
                                                     <td>{{$item->venue}}</td>
                                                     <td>
-                                                        @if ($item->status == 'arsip')
+                                                        @if ($item->status == 'Arsip')
                                                             <div class="badge badge-warning">Arsip</div>
-                                                        @elseif($item->status == 'segera')
+                                                        @elseif($item->status == 'Segera')
                                                             <div class="badge badge-info">Segera</div>
                                                          @else
                                                             <div class="badge badge-success">Selesai</div>
@@ -71,7 +72,7 @@
                                                     </td>
                                                 </tr>
                                             @endforeach
-                                        </tbody>
+                                        </tbody> --}}
                                     </table>
                                 </div>
                             </div>
@@ -92,9 +93,28 @@
 
 @push('script')
     <script type="text/javascript">
-        $('#tableData').DataTable({});
+        $('#tableData').DataTable({
+            responsive: true,
+            serverSide: true,
+            processing: true,
+            ajax: "{{ route('agenda.getData') }}",
+            columns: [
+                { data: "id", name: "id", visible: false },
+                { data: "DT_RowIndex", name: "DT_RowIndex", orderable: false, searchable: false },
+                { data: "title", name: "title" },
+                { data: "start_time", name: "start_time" },
+                { data: "venue", name: "venue" },
+                { data: "status", name: "status", orderable: false, searchable: false },
+                { data: "actions", name: "actions", orderable: false, searchable: false },
+            ],
+            order: [[0, "desc"]],
+            lengthMenu: [
+                [10, 25, 50, 100, -1],
+                [10, 25, 50, 100, "All"],
+            ],
+        });
 
-        $('.formDelete').submit(function (e) {
+        $('#tableData').on("click", ".btn-delete", function (e) {
             var title = $('.btn-delete').attr('data-name');
             e.preventDefault();
 

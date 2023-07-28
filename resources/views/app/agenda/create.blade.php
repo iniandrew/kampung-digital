@@ -90,9 +90,9 @@
                             <label>Status Agenda</label>
                             <select class="form-control @error('status') is-invalid @enderror" name="status" style="height: 45px">
                                 <option selected disabled hidden value="">Silahkan Pilih</option>
-                                <option value="arsip" @if (old('status') == "arsip") selected @endif>Arsip</option>
-                                <option value="segera" @if (old('status') == "segera") selected @endif>Segera</option>
-                                <option value="selesai" @if (old('status') == "selesai") selected @endif>Selesai</option>
+                                <option value="Arsip" @if (old('status') == "Arsip") selected @endif>Arsip</option>
+                                <option value="Segera" @if (old('status') == "Segera") selected @endif>Segera</option>
+                                <option value="Selesai" @if (old('status') == "Selesai") selected @endif>Selesai</option>
                             </select>
                             @error('status')
                                 <div class="invalid-feedback">{{ $message }}</div>

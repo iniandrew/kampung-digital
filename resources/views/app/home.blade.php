@@ -17,7 +17,7 @@
                                 <h4>Total Dana</h4>
                             </div>
                             <div class="card-body">
-                                Rp. 200000
+                                Rp. {{number_format($fund,2,',','.')}}
                             </div>
                         </div>
                     </div>

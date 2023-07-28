@@ -19,7 +19,7 @@
                 <a href="{{ route('complaint.index') }}" class="nav-link"><i class="fas fa-file-alt"></i><span>Aduan</span></a>
             </li>
             @if(auth()->user()->role === \App\Models\User::ROLE_BENDAHARA)
-                <li class="menu">
+                <li class="menu {{ request()->routeIs('fund.*') ? 'active' : '' }}">
                     <a href="{{ route('fund.index') }}" class="nav-link"><i class="fas fa-wallet"></i><span>Pendanaan</span></a>
                 </li>
             @endif

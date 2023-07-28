@@ -32,6 +32,7 @@
                 <th>Rincian Dana</th>
                 <th>Total</th>
                 <th>Tanggal transaksi</th>
+                <th>Nota</th>
             </tr>
         </thead>
         <tbody>
@@ -42,6 +43,9 @@
                     <td>{{ $fund->body }}</td>
                     <td>Rp. {{number_format($fund->amount,2,',','.')}}</td>
                     <td>{{ date('d M, Y', strtotime($fund->transaction_date)) }}</td>
+                    <td>
+                        <img src="{{ public_path('storage/dana/'. $fund->attachment) }}" alt="bukti nota" style="width: 150px;">
+                    </td>
                 </tr>
             @endforeach
         </tbody>

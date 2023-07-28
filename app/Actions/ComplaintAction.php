@@ -17,6 +17,19 @@ class ComplaintAction
     ) {
     }
 
+    public function getAllComplaints(): \Illuminate\Database\Eloquent\Collection
+    {
+        return Complaint::all();
+    }
+
+    public function getComplaintByReporter(): \Illuminate\Database\Eloquent\Collection|array
+    {
+        $query = Complaint::query();
+        $query->where('user_id', $this->request->user()->id);
+
+        return $query->get();
+    }
+
     public function create(): bool
     {
         $filteredRequest = $this->validate($this->request->all(), $this->rules());

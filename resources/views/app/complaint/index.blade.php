@@ -31,6 +31,9 @@
                                         <thead>
                                         <tr>
                                             <th>No.</th>
+                                            @if(auth()->user()->role !== \App\Models\User::ROLE_WARGA)
+                                                <th>Pelapor</th>
+                                            @endif
                                             <th>Judul Aduan</th>
                                             <th>Status</th>
                                             <th>Aksi</th>
@@ -40,6 +43,9 @@
                                         @foreach($complaints as $key => $complaint)
                                             <tr>
                                                 <td>{{ $key + 1 }}</td>
+                                                @if(auth()->user()->role !== \App\Models\User::ROLE_WARGA)
+                                                    <td>{{ $complaint->user->name }}</td>
+                                                @endif
                                                 <td>{{ $complaint->title }}</td>
                                                 <td>
                                                     <span

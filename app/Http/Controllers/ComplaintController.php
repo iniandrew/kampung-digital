@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Actions\ComplaintAction;
 use App\Models\Complaint;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class ComplaintController extends Controller
@@ -11,9 +12,13 @@ class ComplaintController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(ComplaintAction $action)
     {
-        $complaints = Complaint::query()->get();
+        if (auth()->user()->role === User::ROLE_WARGA) {
+            $complaints = $action->getComplaintByReporter();
+        } else {
+            $complaints = $action->getAllComplaints();
+        }
 
         return view('app.complaint.index', [
             'titlePage' => 'Aduan',

@@ -6,9 +6,16 @@ use App\Models\Fund;
 use Illuminate\Http\Request;
 use Validator;
 use Auth;
+use File;
 
 class FundController extends Controller
 {
+    public function guard(){
+        if (Auth::user()->role != "Bendahara") {
+           abort(403, 'Anda tidak memiliki akses ke halaman ini');
+        }
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -19,13 +26,13 @@ class FundController extends Controller
         $income = Fund::where('category', 'Pemasukan')->get();
         $inflow = 0;
         foreach ($income as $value) {
-            $inflow += $value->total;
+            $inflow += $value->amount;
         }
 
         $spending = Fund::where('category', 'Pengeluaran')->get();
         $outlay = 0;
         foreach ($spending as $item) {
-            $outlay += $item->total;
+            $outlay += $item->amount;
         }
         return view('app.fund.index', compact('titlePage', 'dataDana', 'inflow', 'outlay'));
     }
@@ -35,7 +42,8 @@ class FundController extends Controller
      */
     public function create()
     {
-        $titlePage = " Tambah Dana";
+        $this->guard();
+        $titlePage = "Tambah Dana";
         return view('app.fund.create', compact('titlePage'));
     }
 
@@ -44,13 +52,20 @@ class FundController extends Controller
      */
     public function store(Request $request)
     {
+        $this->guard();
+        $messages = [
+            'required' => 'Kolom harus diisi.',
+            'mimes' => "File harus berupa JPG, JPEG, atau PNG",
+            'file' => "Harap Upload file"
+        ];
+
         $validator = Validator::make($request->all(), [
             'category' => 'required',
             'body' => 'required',
             'amount' => 'required',
             'transaction_date' => 'required',
             'attachment' => 'file|mimes:png,jpg,jpeg'
-        ]);
+        ], $messages);
 
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
@@ -66,13 +81,14 @@ class FundController extends Controller
         $post->user_id = Auth::user()->id;
         $post->category = $request->category;
         $post->body = $request->body;
-        $post->amount = $request->amount;
+        $total = preg_replace("/[^a-zA-Z0-9]/", "", $request->amount);
+        $post->amount = $total;
         $post->transaction_date = $request->transaction_date;
         $post->attachment = $filename;
 
         $post->save();
 
-        return redirect()->route('fund.index')->with('success', "Berhasil menambahkan data");
+        return redirect()->route('fund.index')->with('success', "Berhasil menambahkan data dana");
     }
 
     /**
@@ -88,6 +104,7 @@ class FundController extends Controller
      */
     public function edit(Fund $fund)
     {
+        $this->guard();
         $titlePage = " Edit Dana";
         return view('app.fund.edit', [
             'titlePage' => $titlePage,
@@ -100,12 +117,19 @@ class FundController extends Controller
      */
     public function update(Request $request, Fund $fund)
     {
+        $this->guard();
+        $messages = [
+            'required' => 'Kolom harus diisi.',
+            'mimes' => "File harus berupa JPG, JPEG, atau PNG",
+            'file' => "Harap Upload file"
+        ];
+
         $validator = Validator::make($request->all(), [
             'category' => 'required',
             'body' => 'required',
             'amount' => 'required',
             'transaction_date' => 'required',
-        ]);
+        ], $messages);
 
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
@@ -113,6 +137,14 @@ class FundController extends Controller
 
         if($request->hasfile('attaachment'))
         {
+            $validateFile = Validator::make($request->all(), [
+                'attachment' => 'file|mimes:png,jpg,jpeg'
+            ], $messages);
+
+            if ($validateFile->fails()) {
+                return redirect()->back()->withErrors($validateFile)->withInput();
+            }
+
             $file = $request->file('attaachment');
             $extention = $file->getClientOriginalExtension();
             $filename = time().'.'.$extention;
@@ -125,7 +157,8 @@ class FundController extends Controller
 
         $fund->category = $request->category;
         $fund->body = $request->body;
-        $fund->amount = $request->amount;
+        $total = preg_replace("/[^a-zA-Z0-9]/", "", $request->amount);
+        $fund->amount = $total;
         $fund->transaction_date = $request->transaction_date;
 
         $fund->save();
@@ -137,6 +170,10 @@ class FundController extends Controller
      */
     public function destroy(Fund $fund)
     {
-        //
+        $this->guard();
+        File::delete('storage/dana/'. $fund->attachment);
+        $fund->delete();
+
+        return redirect()->route('fund.index')->with('success', 'Berhasil menghapus dana');
     }
 }

@@ -29,7 +29,7 @@
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
-                                    <table class="table table-striped" id="table-1">
+                                    <table class="table table-striped" id="tableData">
                                         <thead>
                                             <tr>
                                                 <th>No.</th>
@@ -47,14 +47,14 @@
                                                     <td>{{ date('d M, Y', strtotime($item->transaction_date)) }}</td>
                                                     <td>Rp. {{number_format($item->amount,2,',','.')}}</td>
                                                     <td>
-                                                        <form action="{{ route('fund.destroy', $item->id) }}" method="POST">
+                                                        <form action="{{ route('fund.destroy', $item->id) }}" class="formDelete" method="POST">
                                                             @if (Auth::user()->role == 'Bendahara')
                                                                 <a href="{{ route('fund.edit', $item->id) }}" class="btn btn-info" title="Edit"><span class="fas fa-edit"></span></a>
                                                                 @csrf
                                                                 @method('DELETE')
-                                                                <button type="submit" class="btn btn-danger show_confirm" data-name=" {{ date('d M, Y', strtotime($item->tanggal_transaksi)) }} " data-toggle="toolip"><i class="fas fa-trash"></i></button>
+                                                                <button type="submit" class="btn btn-danger btn-delete" data-name="{{ date('d M, Y', strtotime($item->transaction_date)) }}"><i class="fas fa-trash"></i></button>
                                                             @else
-                                                                <a class="btn btn-primary" href="{{ route('fund.show', $item->id) }}" title="Detail"><i class="ion-ios-information-outline"></i></a>
+                                                                <a class="btn btn-primary" href="{{ route('fund.show', $item->id) }}" title="Detail"><i class="fas fa-info"></i></a>
                                                             @endif
                                                         </form>
                                                     </td>
@@ -78,11 +78,8 @@
             {{-- end content --}}
         </section>
     </div>
-
 @endsection
-@push('titlePages')
-    {{$titlePage}}
-@endpush
+
 @push('js-libraries')
     <script src="https://cdn.datatables.net/1.13.3/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
@@ -91,24 +88,26 @@
 
 @push('script')
     <script type="text/javascript">
+        $('#tableData').DataTable();
 
-       $('.show_confirm').click(function(event) {
-          var form =  $(this).closest("form");
-          var name = $(this).data("name");
-          var judul = $(this).attr('data-name');
-          event.preventDefault();
-          swal({
-              title: `Apakah anda yakin ingin menghapus dana pada tanggal `+judul+ ' ?',
-              text: "Jika anda hapus, data dana akan hilang permanen",
-              icon: "warning",
-              buttons: true,
-              dangerMode: true,
-          })
-          .then((willDelete) => {
-            if (willDelete) {
-              form.submit();
-            }
-          });
-      });
+       $('.formDelete').submit(function (e) {
+            var title = $('.btn-delete').attr('data-name');
+            e.preventDefault();
+
+            Swal.fire({
+                title: 'Apakah Anda Yakin Menghapus Dana Pada Tanggal '+ title +'?',
+                text: "Data yang dihapus tidak dapat dikembalikan!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Ya, hapus!',
+                cancelButtonText: 'Batal',
+                confirmButtonColor: '#d33',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    this.submit();
+                }
+            })
+        });
   </script>
 @endpush

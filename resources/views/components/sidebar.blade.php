@@ -18,7 +18,7 @@
             <li class="menu">
                 <a href="#" class="nav-link"><i class="fas fa-file-alt"></i><span>Aduan</span></a>
             </li>
-            <li class="menu">
+            <li class="menu {{ request()->routeIs('fund.*') ? 'active' : '' }}">
                 <a href="{{ route('fund.index') }}" class="nav-link"><i class="fas fa-wallet"></i><span>Pendanaan</span></a>
             </li>
 

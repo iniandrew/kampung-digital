@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\People;
 use App\Models\Agenda;
+use App\Models\Fund;
 
 class HomeController extends Controller
 {
@@ -27,9 +28,24 @@ class HomeController extends Controller
     {
         $peoples = People::all()->count();
         $schedules = Agenda::orderBy('created_at', 'desc')->limit(5)->get();
+        $income = Fund::where('category', 'Pemasukan')->get();
+        $inflow = 0;
+        foreach ($income as $value) {
+            $inflow += $value->amount;
+        }
+
+        $spending = Fund::where('category', 'Pengeluaran')->get();
+        $outlay = 0;
+        foreach ($spending as $item) {
+            $outlay += $item->amount;
+        }
+
+        $totalFund = $inflow - $outlay;
+
         return view('app.home', [
             'villages' => $peoples,
-            'schedules' => $schedules
+            'schedules' => $schedules,
+            'fund' => $totalFund
         ]);
     }
 

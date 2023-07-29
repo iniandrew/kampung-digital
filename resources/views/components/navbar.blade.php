@@ -11,44 +11,57 @@
         <div class="dropdown-menu dropdown-list dropdown-menu-right">
             <div class="dropdown-header">Notifications</div>
             <div class="dropdown-list-content dropdown-list-icons">
-                {{-- @if ($userDie > 0) --}}
-                    <a href="#" class="dropdown-item">
-                        <div class="dropdown-item-icon bg-warning text-white">
-                            <i class="far fa-user" style="margin-top: 10px"></i>
+                @forelse(auth()->user()->unreadNotifications as $notification)
+                    <a href="{{ $notification->data['url'] }}" class="dropdown-item dropdown-item-unread">
+                        <div class="dropdown-item-icon bg-primary text-white">
+                            <i class="fas fa-code"></i>
                         </div>
                         <div class="dropdown-item-desc">
-                            Terdapat 10 Pengguna non-aktif!
+                            <p>{{ $notification->data['message'] }}</p>
+                            <div class="time text-primary">{{ $notification->created_at->diffForHumans() }}</div>
                         </div>
                     </a>
-                {{-- @endif --}}
-                {{-- @if ($reviewReport > 0) --}}
+                @empty
                     <a href="#" class="dropdown-item">
-                        <div class="dropdown-item-icon bg-danger text-white">
-                            <i class="far fa-file-alt" style="margin-top: 10px"></i>
+                        <div class="dropdown-item-icon bg-success text-white">
+                            <i class="fas fa-bell" style="margin-top: 10px"></i>
                         </div>
                         <div class="dropdown-item-desc">
-                            4 Aduan Perlu ditinjau!
+                            Selamat Datang Di SIKAT (Sistem Informasi Kampung Digital)
                         </div>
                     </a>
-                {{-- @endif --}}
-                {{-- @if ($responReport > 0) --}}
-                    <a href="#" class="dropdown-item">
-                        <div class="dropdown-item-icon bg-info text-white">
-                            <i class="far fa-file-alt" style="margin-top: 10px"></i>
-                        </div>
-                        <div class="dropdown-item-desc">
-                            2 Aduan Perlu ditanggapi!
-                        </div>
-                    </a>
-                {{-- @endif --}}
-                <a href="#" class="dropdown-item">
-                <div class="dropdown-item-icon bg-success text-white">
-                    <i class="fas fa-bell" style="margin-top: 10px"></i>
-                </div>
-                <div class="dropdown-item-desc">
-                    Selamat Datang Di SIKAT (Sistem Informasi Kampung Digital)
-                </div>
-                </a>
+                @endforelse
+
+{{--                --}}{{-- @if ($userDie > 0) --}}
+{{--                    <a href="#" class="dropdown-item">--}}
+{{--                        <div class="dropdown-item-icon bg-warning text-white">--}}
+{{--                            <i class="far fa-user" style="margin-top: 10px"></i>--}}
+{{--                        </div>--}}
+{{--                        <div class="dropdown-item-desc">--}}
+{{--                            Terdapat 10 Pengguna non-aktif!--}}
+{{--                        </div>--}}
+{{--                    </a>--}}
+{{--                --}}{{-- @endif --}}
+{{--                --}}{{-- @if ($reviewReport > 0) --}}
+{{--                    <a href="#" class="dropdown-item">--}}
+{{--                        <div class="dropdown-item-icon bg-danger text-white">--}}
+{{--                            <i class="far fa-file-alt" style="margin-top: 10px"></i>--}}
+{{--                        </div>--}}
+{{--                        <div class="dropdown-item-desc">--}}
+{{--                            4 Aduan Perlu ditinjau!--}}
+{{--                        </div>--}}
+{{--                    </a>--}}
+{{--                --}}{{-- @endif --}}
+{{--                --}}{{-- @if ($responReport > 0) --}}
+{{--                    <a href="#" class="dropdown-item">--}}
+{{--                        <div class="dropdown-item-icon bg-info text-white">--}}
+{{--                            <i class="far fa-file-alt" style="margin-top: 10px"></i>--}}
+{{--                        </div>--}}
+{{--                        <div class="dropdown-item-desc">--}}
+{{--                            2 Aduan Perlu ditanggapi!--}}
+{{--                        </div>--}}
+{{--                    </a>--}}
+{{--                --}}{{-- @endif --}}
             </div>
         </div>
     </li>

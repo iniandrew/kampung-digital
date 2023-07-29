@@ -5,6 +5,8 @@ namespace App\Actions;
 use App\Concerns\HandleAttachment;
 use App\Concerns\Validation;
 use App\Models\Complaint;
+use App\Models\User;
+use App\Notifications\CreatedComplaintNotification;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 
@@ -65,7 +67,14 @@ class ComplaintAction
             $complaint->attachment = $this->storePhoto($this->request->file('attachment'), 500, 'complaints');
         }
 
-        return $complaint->save();
+        $action = $complaint->save();
+
+        if ($action) {
+            $user = User::query()->whereIn('role', [User::ROLE_ADMIN, User::ROLE_SUPER_ADMIN])->get();
+            $user->each(fn (User $user) => $user->notify(new CreatedComplaintNotification($complaint)));
+        }
+
+        return $action;
     }
 
     public function edit(Complaint $complaint): bool

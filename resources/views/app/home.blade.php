@@ -59,7 +59,7 @@
                         <div class="card-header">
                             <h4>Aduan Terbaru</h4>
                             <div class="card-header-action">
-                                <a href="{{ route('home') }}" class="btn btn-primary">Lihat Semua</a>
+                                <a href="{{ route('complaint.index') }}" class="btn btn-primary">Lihat Semua</a>
                             </div>
                         </div>
                         <div class="card-body">
@@ -73,20 +73,22 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {{-- @foreach ($aduan as $item)
+                                     @foreach ($complaints as $complaint)
                                         <tr>
-                                            <td>{{ $item->judul }}</td>
-                                            <td>{{ $item->isi }}</td>
-                                            <td>{{ $item->user->warga->nama_warga }}</td>
+                                            <td>{{ $complaint->title }}</td>
+                                            <td>{{ $complaint->content }}</td>
+                                            <td>{{ $complaint->user->name }}</td>
                                             <td>
-                                                @if ($item->status == 'ditinjau')
-                                                    <a href="javasrcipt:void(0);" class="btn btn-warning btn-rounded">Perlu Direview</a>
-                                                @else
-                                                    <a href="javasrcipt:void(0);" class="btn btn-success btn-rounded">Telah Ditanggapi</a>
-                                                @endif
+                                                <span
+                                                    class="badge @if($complaint->status === \App\Models\Complaint::STATUS_NEED_REVIEW) badge-warning
+                                                                     @elseif($complaint->status === \App\Models\Complaint::STATUS_IN_PROGRESS) badge-info
+                                                                     @elseif($complaint->status === \App\Models\Complaint::STATUS_CLOSED) badge-success
+                                                                     @else badge-danger
+                                                               @endif"
+                                                >{{ $complaint->statusLabel }}</span>
                                             </td>
                                         </tr>
-                                    @endforeach --}}
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>

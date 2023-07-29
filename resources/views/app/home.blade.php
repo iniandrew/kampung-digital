@@ -73,7 +73,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                     @foreach ($complaints as $complaint)
+                                     @forelse ($complaints as $complaint)
                                         <tr>
                                             <td>{{ $complaint->title }}</td>
                                             <td>{{ $complaint->content }}</td>
@@ -88,7 +88,11 @@
                                                 >{{ $complaint->statusLabel }}</span>
                                             </td>
                                         </tr>
-                                    @endforeach
+                                     @empty
+                                        <tr>
+                                            <td colspan="4" class="text-center">Belum ada data aduan.</td>
+                                        </tr>
+                                     @endforelse
                                 </tbody>
                             </table>
                         </div>

@@ -6,8 +6,7 @@
                 <h1> {{$titlePage}} </h1>
                 <div class="section-header-breadcrumb">
                     <div class="breadcrumb-item active"><a href="{{ route('home') }}">Dashboard</a></div>
-                    <div class="breadcrumb-item"><a href="#">Aduan</a></div>
-                    <div class="breadcrumb-item"><a href="{{ route('complaint.index') }}">List Aduan</a></div>
+                    <div class="breadcrumb-item"><a href="{{ route('complaint.index') }}">Data Aduan</a></div>
                     <div class="breadcrumb-item">Tambah Aduan</div>
                 </div>
             </div>

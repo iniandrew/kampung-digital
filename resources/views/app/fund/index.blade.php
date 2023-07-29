@@ -12,8 +12,7 @@
                 <h1>{{$titlePage}}</h1>
                 <div class="section-header-breadcrumb">
                     <div class="breadcrumb-item active"><a href="{{ route('home') }}">Dashboard</a></div>
-                    <div class="breadcrumb-item"><a href="javascript:void(0);">Dana</a></div>
-                    <div class="breadcrumb-item">List Dana</div>
+                    <div class="breadcrumb-item">Data Dana</div>
                 </div>
             </div>
             {{-- edit content --}}
@@ -25,6 +24,7 @@
                                 <h4>Data Dana</h4>
                                 @if (Auth::user()->role == 'Bendahara')
                                     <a href="{{ route('fund.create') }}" class="btn btn-primary btn-add">Tambah Dana</a>
+                                    <a href="{{ route('fund.export') }}" class="btn btn-outline-danger ml-2"><i class="fas fa-file-pdf"></i> Eksport PDF</a>
                                 @endif
                             </div>
                             <div class="card-body">
@@ -64,7 +64,7 @@
                                     </table>
                                 </div>
                                 <div>
-                                    <h4>Informasi Saldo saat ini</h4>
+                                    <h4>Informasi Saldo Saat Ini</h4>
                                     <p>Total Pemasukan : Rp. {{number_format($inflow,2,',','.')}}</p>
                                     <p>Total Pengeluaran : Rp. {{number_format($outlay,2,',','.')}}</p>
                                     <h4>Total Sisa Saldo : Rp. {{number_format($inflow - $outlay,2,',','.')}}</h4>

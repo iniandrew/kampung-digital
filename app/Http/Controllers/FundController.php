@@ -65,7 +65,7 @@ class FundController extends Controller
             'body' => 'required',
             'amount' => 'required',
             'transaction_date' => 'required',
-            'attachment' => 'file|mimes:png,jpg,jpeg'
+            'attachment' => 'file|mimes:png,jpg,jpeg|required'
         ], $messages);
 
         if ($validator->fails()) {

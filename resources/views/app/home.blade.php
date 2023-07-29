@@ -32,7 +32,7 @@
                                 <h4>Total Aduan</h4>
                             </div>
                             <div class="card-body">
-                                20
+                                {{ $totalComplaints }}
                             </div>
                         </div>
                     </div>

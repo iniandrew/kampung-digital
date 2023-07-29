@@ -24,7 +24,7 @@ class UserSeeder extends Seeder
         $roles->each(function ($role) {
             User::query()->create([
                 'name' => $role,
-                'email' => strtolower($role) . "@mail.com",
+                'email' => str_replace(' ', '_', strtolower($role)) . '@mail.com',
                 'password' => Hash::make('password'),
                 'role' => $role
             ]);

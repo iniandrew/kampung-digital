@@ -5,6 +5,7 @@ namespace App\Actions;
 use App\Concerns\HandleAttachment;
 use App\Concerns\Validation;
 use App\Models\Complaint;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 
 class ComplaintAction
@@ -17,12 +18,34 @@ class ComplaintAction
     ) {
     }
 
-    public function getAllComplaints(): \Illuminate\Database\Eloquent\Collection
+    public function getLatestComplaints(): Collection|array
     {
-        return Complaint::all();
+        $query = Complaint::query();
+
+        if (auth()->user()?->isAdministrator()) {
+            $query->where('status', Complaint::STATUS_NEED_REVIEW);
+            $query->orWhere('status', Complaint::STATUS_IN_PROGRESS);
+        }
+
+        $query->where('status', Complaint::STATUS_IN_PROGRESS);
+        $query->orWhere('status', Complaint::STATUS_CLOSED);
+
+        return $query->latest()->limit(5)->get();
     }
 
-    public function getComplaintByReporter(): \Illuminate\Database\Eloquent\Collection|array
+    public function getAllComplaints(): Collection
+    {
+        $query = Complaint::query();
+
+        if (! auth()->user()?->isAdministrator()) {
+            $query->where('status', Complaint::STATUS_IN_PROGRESS);
+            $query->orWhere('status', Complaint::STATUS_CLOSED);
+        }
+
+        return $query->get();
+    }
+
+    public function getComplaintByReporter(): Collection|array
     {
         $query = Complaint::query();
         $query->where('user_id', $this->request->user()->id);

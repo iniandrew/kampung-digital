@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\ComplaintAction;
 use Illuminate\Http\Request;
 use App\Models\People;
 use App\Models\Agenda;
@@ -42,10 +43,13 @@ class HomeController extends Controller
 
         $totalFund = $inflow - $outlay;
 
+        $complaints = (new ComplaintAction())->getLatestComplaints();
+
         return view('app.home', [
             'villages' => $peoples,
             'schedules' => $schedules,
-            'fund' => $totalFund
+            'fund' => $totalFund,
+            'complaints' => $complaints,
         ]);
     }
 

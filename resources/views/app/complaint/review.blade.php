@@ -50,7 +50,7 @@
                                     </div>
                                 </div>
                                 <div class="d-flex">
-                                    <button class="btn btn-danger mr-2">Batal</button>
+                                    <a href="{{ route('complaint.index') }}" class="btn btn-danger mr-2">Batal</a>
                                     <button class="btn btn-primary">Submit</button>
                                 </div>
                             </div>

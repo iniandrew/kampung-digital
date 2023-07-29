@@ -60,7 +60,7 @@
                                                         @if($complaint->status === \App\Models\Complaint::STATUS_NEED_REVIEW && $complaint->user_id === auth()->user()->id)
                                                             <a href="{{ route('complaint.edit', $complaint->id) }}" class="btn btn-icon btn-sm btn-warning mr-2" data-toggle="tooltip" title="Edit Aduan"><i class="fas fa-pencil"></i></a>
                                                         @endif
-                                                        @if((auth()->user()->role === \App\Models\User::ROLE_SUPER_ADMIN || auth()->user()->role === \App\Models\User::ROLE_ADMIN))
+                                                        @if((auth()->user()->isAdministrator()))
                                                             @if($complaint->status === \App\Models\Complaint::STATUS_NEED_REVIEW)
                                                                     <a href="{{ route('complaint.review', $complaint->id) }}" class="btn btn-icon btn-sm btn-warning mr-2" data-toggle="tooltip" title="Review Aduan"><i class="fas fa-file-signature"></i></a>
                                                             @endif

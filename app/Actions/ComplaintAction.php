@@ -30,7 +30,7 @@ class ComplaintAction
         $query->where('status', Complaint::STATUS_IN_PROGRESS);
         $query->orWhere('status', Complaint::STATUS_CLOSED);
 
-        return $query->latest()->limit(5)->get();
+        return $query->latest()->take(5)->get();
     }
 
     public function getAllComplaints(): Collection
@@ -42,7 +42,7 @@ class ComplaintAction
             $query->orWhere('status', Complaint::STATUS_CLOSED);
         }
 
-        return $query->get();
+        return $query->latest()->get();
     }
 
     public function getComplaintByReporter(): Collection|array
@@ -50,7 +50,7 @@ class ComplaintAction
         $query = Complaint::query();
         $query->where('user_id', $this->request->user()->id);
 
-        return $query->get();
+        return $query->latest()->get();
     }
 
     public function create(): bool

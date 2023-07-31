@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\Complaint;
+use App\Models\People;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Seeder;
@@ -30,6 +32,18 @@ class UserSeeder extends Seeder
             ]);
 
             $this->command->info('User ' . $role . ' created');
+        });
+
+        People::query()->take(5)->get()->each(function ($people) {
+            User::query()->create([
+                'name' => $people->name,
+                'email' => str_replace(' ', '_', strtolower($people->name)) . '@mail.com',
+                'password' => Hash::make('password'),
+                'role' => User::ROLE_WARGA,
+                'people_id' => $people->id
+            ]);
+
+            $this->command->info('User warga ' . $people->name . ' created');
         });
     }
 }

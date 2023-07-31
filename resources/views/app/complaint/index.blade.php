@@ -35,7 +35,8 @@
                                             @endif
                                             <th>Judul Aduan</th>
                                             <th>Status</th>
-                                            <th>Aksi</th>
+                                            <th>Tanggal Pelaporan</th>
+                                            <th>Action</th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -55,6 +56,7 @@
                                                                @endif"
                                                     >{{ $complaint->statusLabel }}</span>
                                                 </td>
+                                                <td>{{ $complaint->complaintDate }}</td>
                                                 <td>
                                                     <div class="d-flex">
                                                         @if($complaint->status === \App\Models\Complaint::STATUS_NEED_REVIEW && $complaint->user_id === auth()->user()->id)

@@ -63,7 +63,7 @@
                             </div>
                         </div>
                         <div class="card-body">
-                            <table class="table">
+                            <table class="table table-responsive table-striped">
                                 <thead>
                                     <tr>
                                         <th scope="col">Judul Aduan</th>
@@ -76,7 +76,7 @@
                                      @forelse ($complaints as $complaint)
                                         <tr>
                                             <td>{{ $complaint->title }}</td>
-                                            <td>{{ $complaint->content }}</td>
+                                            <td class="p-2">{{ $complaint->content }}</td>
                                             <td>{{ $complaint->user->name }}</td>
                                             <td>
                                                 <span

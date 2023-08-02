@@ -19,5 +19,6 @@ class DatabaseSeeder extends Seeder
         $this->call(UserSeeder::class);
         Agenda::factory(100)->create();
         Complaint::factory(20)->create();
+        $this->call(FundSeeder::class);
     }
 }

@@ -58,4 +58,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Complaint::class, 'user_id', 'id');
     }
+
+    public function funds(): HasMany
+    {
+        return $this->hasMany(Fund::class, 'user_id', 'id');
+    }
 }

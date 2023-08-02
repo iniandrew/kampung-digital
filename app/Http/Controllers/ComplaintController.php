@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Actions\ComplaintAction;
 use App\Models\Complaint;
 use App\Models\User;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class ComplaintController extends Controller
 {
@@ -31,6 +33,8 @@ class ComplaintController extends Controller
      */
     public function create()
     {
+        Gate::allowIf(auth()->user()->role === User::ROLE_WARGA);
+
         return view('app.complaint.create', [
             'titlePage' => 'Buat Aduan',
         ]);
@@ -41,6 +45,8 @@ class ComplaintController extends Controller
      */
     public function store(Request $request)
     {
+        Gate::allowIf(auth()->user()->role === User::ROLE_WARGA);
+
         $command = (new ComplaintAction($request))->create();
 
         return $command
@@ -64,6 +70,8 @@ class ComplaintController extends Controller
      */
     public function edit(Complaint $complaint)
     {
+        Gate::allowIf(auth()->user()->role === User::ROLE_WARGA);
+
         return view('app.complaint.edit', [
             'titlePage' => 'Ubah Aduan',
             'complaint' => $complaint,
@@ -75,6 +83,8 @@ class ComplaintController extends Controller
      */
     public function update(Request $request, Complaint $complaint)
     {
+        Gate::allowIf(auth()->user()->role === User::ROLE_WARGA);
+
         $command = (new ComplaintAction($request))->edit($complaint);
 
         return $command
@@ -92,14 +102,18 @@ class ComplaintController extends Controller
 
     public function review(Complaint $complaint)
     {
+        Gate::allowIf(auth()->user()?->isAdministrator());
+
         return view('app.complaint.review', [
             'titlePage' => 'Review Aduan',
             'complaint' => $complaint,
         ]);
     }
 
-    public function reviewAction(Request $request, Complaint $complaint): \Illuminate\Http\RedirectResponse
+    public function reviewAction(Request $request, Complaint $complaint): RedirectResponse
     {
+        Gate::allowIf(auth()->user()?->isAdministrator());
+
         $command = (new ComplaintAction($request))->review($complaint);
 
         return $command
@@ -107,8 +121,10 @@ class ComplaintController extends Controller
             : redirect()->back()->with('error', 'Aduan gagal direview');
     }
 
-    public function respond(Request $request, Complaint $complaint): \Illuminate\Http\RedirectResponse
+    public function respond(Request $request, Complaint $complaint): RedirectResponse
     {
+        Gate::allowIf(auth()->user()?->isAdministrator());
+
         $command = (new ComplaintAction($request))->respond($complaint);
 
         return $command

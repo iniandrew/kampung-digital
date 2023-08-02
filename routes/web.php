@@ -30,22 +30,25 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/change-password', [HomeController::class, 'changePassword'])->name('changePassword');
 
     Route::resource('/people', PeopleController::class);
-    Route::get('/getPeople', [PeopleController::class, 'getData'])->name('people.getData');
 
     Route::resource('/user', UserController::class);
-    Route::get('/getUser', [UserController::class, 'getData'])->name('user.getData');
 
     Route::resource('/fund', FundController::class);
-    Route::get('exportFund', [FundController::class, 'export'])->name('fund.export');
 
     Route::resource('/agenda', AgendaController::class);
-    Route::get('/getAgenda', [AgendaController::class, 'getData'])->name('agenda.getData');
 
     Route::resource('/complaint', ComplaintController::class);
 });
 
+Route::middleware(['auth', 'cors'])->group(function () {
+    Route::get('/getPeople', [PeopleController::class, 'getData'])->name('people.getData');
+    Route::get('/getUser', [UserController::class, 'getData'])->name('user.getData');
+    Route::get('/exportFund', [FundController::class, 'export'])->name('fund.export');
+    Route::get('/getAgenda', [AgendaController::class, 'getData'])->name('agenda.getData');
+});
+
 Route::middleware('auth')->prefix('complaint')->name('complaint.')->group(function () {
     Route::get('{complaint}/review', [ComplaintController::class, 'review'])->name('review');
-    Route::post('{complaint}/review', [ComplaintController::class, 'reviewAction'])->name('review.store');
+    Route::put('{complaint}/review', [ComplaintController::class, 'reviewAction'])->name('review.store');
     Route::post('{complaint}/respond', [ComplaintController::class, 'respond'])->name('respond');
 });

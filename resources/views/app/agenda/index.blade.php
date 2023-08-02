@@ -86,6 +86,7 @@
         });
 
         $('#tableData').on("click", ".btn-delete", function (e) {
+            var form = $(this).closest("form");
             var title = $('.btn-delete').attr('data-name');
             e.preventDefault();
 
@@ -100,7 +101,7 @@
                 reverseButtons: true
             }).then((result) => {
                 if (result.isConfirmed) {
-                    this.submit();
+                    form.submit();
                 }
             })
         });

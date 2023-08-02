@@ -1,3 +1,8 @@
+### SIKAT 
+Aplikasi ini akan membantu masyarakat desa dalam mengetahui transparansi dana kas desa, agenda kegiatan pada desa, dan dapat mengadukan keluhannya di website tersebut. Bagi aparat desa dapat mencatat segala keluhan dan dana kas desa secara digital, tanpa perlu khawatir kehilangan data.
+
+---
+
 Setup after cloning this project
 
 step 1: `composer install`

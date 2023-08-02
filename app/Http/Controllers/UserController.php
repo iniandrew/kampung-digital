@@ -84,7 +84,7 @@ class UserController extends Controller
         $post->save();
 
         //update status account
-        $people->account = 1;
+        $people->has_account = 1;
 
         $people->save();
 
@@ -97,7 +97,7 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = User::find($id);
-        $peoples = People::where('account', 1)->get();
+        $peoples = People::where('has_account', 1)->get();
 
         return view('app.user.edit', [
             'titlePage' => "Edit Pengguna",
@@ -150,7 +150,7 @@ class UserController extends Controller
 
         // update acoount people
         $people = People::find($user->people_id);
-        $people->account = 0;
+        $people->has_account = 0;
         $people->save();
 
         $user->delete();

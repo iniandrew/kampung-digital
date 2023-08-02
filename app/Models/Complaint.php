@@ -52,4 +52,9 @@ class Complaint extends Model
             default => 'Tidak Diketahui',
         });
     }
+
+    public function complaintDate(): Attribute
+    {
+        return new Attribute(fn () => $this->created_at->format('d F Y H:i:s'));
+    }
 }

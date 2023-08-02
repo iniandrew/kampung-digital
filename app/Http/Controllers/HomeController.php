@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\People;
 use App\Models\Agenda;
 use App\Models\Fund;
+use App\Models\Complaint;
 
 class HomeController extends Controller
 {
@@ -45,11 +46,14 @@ class HomeController extends Controller
 
         $complaints = (new ComplaintAction())->getLatestComplaints();
 
+        $countComplaints = Complaint::where('status', 'in_progress')->orWhere('status', 'closed')->count();
+
         return view('app.home', [
             'villages' => $peoples,
             'schedules' => $schedules,
             'fund' => $totalFund,
             'complaints' => $complaints,
+            'totalComplaints' => $countComplaints
         ]);
     }
 

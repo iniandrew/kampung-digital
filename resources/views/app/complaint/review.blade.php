@@ -17,6 +17,8 @@
                     <div class="card-body">
                         <form method="POST" action="{{ route('complaint.review.store', $complaint->id) }}">
                             @csrf
+                            @method('PUT')
+
                         <div class="row">
                             <div class="col-6">
                                 <div class="form-group">

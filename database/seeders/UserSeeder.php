@@ -27,7 +27,7 @@ class UserSeeder extends Seeder
             User::query()->create([
                 'name' => $role,
                 'email' => str_replace(' ', '_', strtolower($role)) . '@mail.com',
-                'password' => (if(env('APP_ENV') === 'prod') ? Hash::make('secretP4sswd123!') : Hash::make('password),
+                'password' => (if(env('APP_ENV') !== 'local') ? Hash::make('secretP4sswd123!') : Hash::make('password),
                 'role' => $role
             ]);
 
@@ -38,7 +38,7 @@ class UserSeeder extends Seeder
             User::query()->create([
                 'name' => $people->name,
                 'email' => str_replace(' ', '_', strtolower($people->name)) . '@mail.com',
-                'password' => (if(env('APP_ENV') === 'prod') ? Hash::make('secretP4sswd123!') : Hash::make('password),
+                'password' => (if(env('APP_ENV') !== 'local') ? Hash::make('secretP4sswd123!') : Hash::make('password),
                 'role' => User::ROLE_WARGA,
                 'people_id' => $people->id
             ]);
